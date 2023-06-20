@@ -5,6 +5,9 @@
   --white:         #FFFFFF;
   --turquoise:     #D5E4F7;
   --text-color:    #333333;
+  --btn-bg:        #5558FA;
+  --btn-hover:     #4344b4;
+  --btn-active:    #1719a3;
   --header-bg:     rgb(195, 195, 195);
 }
 
