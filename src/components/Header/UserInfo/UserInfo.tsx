@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './User.module.scss'
 
-export const User = () => {
+export const UserInfo = () => {
   return (
     <div className={styles.user}>
       <div className={styles.icon}>

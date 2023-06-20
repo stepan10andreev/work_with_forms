@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { Header } from '@/components/Header/Header'
-import { User } from '@/components/Header/UserInfo/User'
+import { UserInfo } from '@/components/Header/UserInfo/UserInfo'
 
 export default function Home() {
   return (
     <>
     <Header>
-      <User />
+      <UserInfo />
     </Header>
     <main className={styles.main}>
 
