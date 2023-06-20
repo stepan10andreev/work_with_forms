@@ -7,9 +7,9 @@ export const UserInfo = () => {
       <div className={styles.icon}>
           ИИ
       </div>
-      <div className={styles.userName}>
+      <h1 className={styles.userName}>
         Иванов Иван
-      </div>
+      </h1>
     </div>
   )
 }

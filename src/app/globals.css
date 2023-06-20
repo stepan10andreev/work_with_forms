@@ -4,6 +4,7 @@
 :root {
   --white:         #FFFFFF;
   --turquoise:     #D5E4F7;
+  --text-color:    #333333;
   --header-bg:     rgb(195, 195, 195);
 }
 
@@ -11,15 +12,15 @@ body {
   padding: 0;
   margin: 0;
   min-width: 320px;
-  background-color: var(--white);
+  font-family: 'Grenze', serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 16px;
-  font-family: 'Grenze', serif;
+  background-color: var(--white);
 }
 
 * {
-  color: var(--black);
+  color: var(--text-color);
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
