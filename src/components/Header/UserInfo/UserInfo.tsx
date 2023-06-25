@@ -11,7 +11,7 @@ export const UserInfo = () => {
   return (
     <div className={styles.user}>
       <div className={styles.icon}>
-          {shortName}
+          {shortName ? shortName : null}
       </div>
       <h1 className={styles.userName}>
         {fullName ? fullName : 'Ваша Фамилия и Имя'}

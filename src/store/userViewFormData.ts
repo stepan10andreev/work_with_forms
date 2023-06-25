@@ -30,6 +30,8 @@ const userViewFormSlice = createSlice({
         state[action.payload.prop] = action.payload.value;
         if (state.fullName.length > 0) {
           state.shortName = getShortName(state.fullName)
+        } else {
+          state.shortName = 'XX'
         }
       },
       prepare (prop: string, value: string) {
