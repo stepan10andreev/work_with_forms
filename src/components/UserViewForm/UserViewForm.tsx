@@ -1,4 +1,3 @@
-'use client'
 import React, { ChangeEventHandler } from 'react'
 import { UIInput } from '../ui-components/UIInput/UIInput'
 import { UIButton } from '../ui-components/UIButton/UIButton'

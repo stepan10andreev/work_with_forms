@@ -1,3 +1,4 @@
+import { getShortName } from "@/app/utils/getShortName";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface IUserViewFormPayload {
@@ -10,12 +11,14 @@ interface IUserViewForm {
   fullName: string;
   tel: string;
   email: string;
+  shortName: string;
 }
 
 const initialState: IUserViewForm = {
   fullName: '',
   tel: '',
   email: '',
+  shortName: 'XX'
 }
 
 const userViewFormSlice = createSlice({
@@ -25,6 +28,9 @@ const userViewFormSlice = createSlice({
     updateUserViewFormData: {
       reducer (state, action: PayloadAction<IUserViewFormPayload>) {
         state[action.payload.prop] = action.payload.value;
+        if (state.fullName.length > 0) {
+          state.shortName = getShortName(state.fullName)
+        }
       },
       prepare (prop: string, value: string) {
         return {

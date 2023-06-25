@@ -1,3 +1,4 @@
+'use client'
 import React, { ChangeEventHandler, FC, useState } from 'react'
 import styles from './Input.module.scss'
 import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp';
