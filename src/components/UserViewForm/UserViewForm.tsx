@@ -21,7 +21,6 @@ export const UserViewForm = () => {
         type={'text'}
         heading={'Имя и Фамилия'}
         placeholderText={'Введите имя и фамилию'}
-        value={''}
         name={'fullName'}
         formName={'userViewForm'}
       />
@@ -29,7 +28,6 @@ export const UserViewForm = () => {
         type={'number'}
         heading={'Номер телефона'}
         placeholderText={'Введите телефон'}
-        value={''}
         name={'tel'}
         formName={'userViewForm'}
       />
@@ -37,7 +35,6 @@ export const UserViewForm = () => {
         type={'email'}
         heading={'Email'}
         placeholderText={'Введите Email'}
-        value={''}
         name={'email'}
         formName={'userViewForm'}
       />

@@ -7,13 +7,13 @@ interface IUserViewFormPayload {
 
 interface IUserViewForm {
   [k: string]: string;
-  fullname: string;
+  fullName: string;
   tel: string;
   email: string;
 }
 
 const initialState: IUserViewForm = {
-  fullname: '',
+  fullName: '',
   tel: '',
   email: '',
 }

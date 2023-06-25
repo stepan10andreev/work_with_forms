@@ -1,26 +1,25 @@
-import React, { ChangeEventHandler, FC } from 'react'
+import React, { ChangeEventHandler, FC, useState } from 'react'
 import styles from './Input.module.scss'
-import { useAppDispatch } from '@/components/Hooks/useApp';
+import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp';
 import { updateUserViewFormData } from '@/store/userViewFormData';
 
 interface IUIInputProps {
   type: string;
   heading?: string;
   placeholderText?: string;
-  value: string;
   name: string;
   As?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'div';
   onChange?: ChangeEventHandler;
   formName: string
 }
 
-export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, value, name, As ='h2', formName}) => {
+export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName}) => {
+  const currentValue = useAppSelector((state) => state.userViewForm[name]);
 
   const dispatch = useAppDispatch();
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
-    console.log(currentTarget)
     switch (formName) {
       case 'userViewForm':
         dispatch(updateUserViewFormData(currentTarget.name, currentTarget.value))
@@ -30,7 +29,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, val
   return (
     <label className={styles.label}>
       <As className={styles.heading}>{heading}</As>
-      <input type={type} name={name} placeholder={placeholderText} value={value} className={styles.input} onChange={onChange}/>
+      <input type={type} name={name} placeholder={placeholderText} value={currentValue} className={styles.input} onChange={onChange}/>
     </label>
   )
 }
