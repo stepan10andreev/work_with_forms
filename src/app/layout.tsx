@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import './globals.css'
+import { Providers } from '@/store/provider'
 
 
 export const metadata: Metadata = {
@@ -15,8 +16,12 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
+      <Providers>
         {children}
+      </Providers>
       </body>
     </html>
   )
 }
+
+
