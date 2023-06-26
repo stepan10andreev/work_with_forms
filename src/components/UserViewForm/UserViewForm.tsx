@@ -5,15 +5,6 @@ import styles from './UserViewForm.module.scss'
 
 
 export const UserViewForm = () => {
-
-  // const dispatch = useAppDispatch();
-
-  // const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-  //   const currentTarget = event.target;
-  //   console.log(currentTarget.name)
-  //   dispatch(updateFullname( ))
-  // }
-
   return (
     <form className={styles.form}>
       <UIInput

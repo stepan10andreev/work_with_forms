@@ -1,4 +1,4 @@
-import { getShortName } from "@/app/utils/getShortName";
+import { getShortName } from "@/utils/getShortName";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface IUserViewFormPayload {
