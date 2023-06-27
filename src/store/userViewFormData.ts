@@ -29,7 +29,7 @@ const userViewFormSlice = createSlice({
       reducer (state, action: PayloadAction<IUserViewFormPayload>) {
         state[action.payload.prop] = action.payload.value;
         if (state.fullName.length > 0) {
-          state.shortName = getShortName(state.fullName)
+          // state.shortName = getShortName(state.fullName)
         } else {
           state.shortName = 'XX'
         }

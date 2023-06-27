@@ -15,7 +15,8 @@ export const UserViewForm = () => {
         name={'fullName'}
         formName={'userViewForm'}
       />
-      <PhoneInput mask={"(+7) 999 999-99-99"} heading={'Номер телефона'}/>
+
+      <PhoneInput mask={"(+7) 999 999-99-99"} heading={'Номер телефона'} placeholderText={'Введите телефон'} name={'tel'} />
       {/* <UIInput
         type={'number'}
         heading={'Номер телефона'}
