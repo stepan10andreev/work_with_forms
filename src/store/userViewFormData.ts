@@ -1,3 +1,4 @@
+import { getFullNameWithCapitalLetters } from "@/utils/getFullNameWithCapitalLetters";
 import { getShortName } from "@/utils/getShortName";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -29,7 +30,7 @@ const userViewFormSlice = createSlice({
       reducer (state, action: PayloadAction<IUserViewFormPayload>) {
         state[action.payload.prop] = action.payload.value;
         if (state.fullName.length > 0) {
-          // state.shortName = getShortName(state.fullName)
+          state.shortName = getShortName(state.fullName)
         } else {
           state.shortName = 'XX'
         }
@@ -42,11 +43,13 @@ const userViewFormSlice = createSlice({
           }
         }
       },
+    },
+    capitalizeLettersOfFullName: (state) => {
+      state.fullName = getFullNameWithCapitalLetters(state.fullName)
     }
-
   }
 })
 
-export const { updateUserViewFormData } = userViewFormSlice.actions;
+export const { updateUserViewFormData, capitalizeLettersOfFullName } = userViewFormSlice.actions;
 
 export default userViewFormSlice.reducer;
