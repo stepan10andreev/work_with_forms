@@ -16,8 +16,7 @@ export const getCorrectInputValue = (fullName: string) => {
   if (value.endsWith('-')) {
     value = value.slice(0, -1);
   }
-  // console.log(value.length)
-  value = value.toLowerCase()[0].toUpperCase() + value.substring(1);
+  value = value.toLowerCase()[0].toUpperCase() + value.substring(1).toLowerCase();
   value = value.replace(/ -+/g, '-');
   value = value.replace(/- +/g, ' ');
   value = value.replace(/-+/g, '-');

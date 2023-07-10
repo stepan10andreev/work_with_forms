@@ -6,7 +6,9 @@ export const getShortName = (name: string) => {
 
   const firstLetter =  name.trim()[0].toUpperCase();
 
-  const fullName = getCorrectInputValue(name).trim().split(' ');
+  const fullName = getCorrectInputValue(name).includes('-') ?
+                  getCorrectInputValue(name).trim().split('-') :
+                  getCorrectInputValue(name).trim().split(' ')
 
   if (fullName.length > 1) {
     const secondLetter =  fullName[1][0].toUpperCase();
