@@ -19,10 +19,10 @@ export interface IUIInputProps {
   onChange?: ChangeEventHandler;
   formName: string
 }
-const onClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-  event.preventDefault();
-  console.log(getFullNameWithCapitalLetters('ыв уу рр'))
-}
+// const onClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+//   event.preventDefault();
+//   console.log(getFullNameWithCapitalLetters('ыв уу рр'))
+// }
 
 export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName}) => {
   const [isCyrillicText, setIsCyrillicText] = useState(true);
@@ -37,6 +37,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
     switch (currentTarget.type) {
       case 'text':
         currentTarget.value = validateTextInput(currentTarget.value);
+
         if (!isCyrillic(currentTarget.value)) {
           setIsCyrillicText(false)
         } else {
