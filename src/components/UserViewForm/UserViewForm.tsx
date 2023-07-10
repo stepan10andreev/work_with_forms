@@ -1,15 +1,17 @@
 'use client'
-import React, { ChangeEventHandler, FormEventHandler } from 'react'
+import React, { FormEventHandler } from 'react'
 import { UIInput } from '../ui-components/UIInput/UIInput'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import styles from './UserViewForm.module.scss'
-import InputMask, { Props } from 'react-input-mask';
 import { PhoneInput } from '../ui-components/PhoneInput/PhoneInput';
 import { validateMaxLength } from '@/utils/validation/validateMaxLength'
 import { isCyrillic } from '@/utils/validation/isCyrillic'
 import { isValidEmail } from '@/utils/validation/isValidEmail'
+import { useRouter } from 'next/navigation'
 
 export const UserViewForm = () => {
+  const router = useRouter();
+
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
@@ -17,9 +19,10 @@ export const UserViewForm = () => {
 
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
-    // console.log(formJson.email, formJson.fullName, formJson.tel);
+
     if (validateMaxLength(formJson.fullName as string, 30) && isCyrillic(formJson.fullName as string) && isValidEmail(formJson.email as string)) {
       console.log(formJson)
+      router.push('/step-1')
     } else {
       console.log('Проверьте поля на корректность введенных данных')
     }
@@ -44,6 +47,7 @@ export const UserViewForm = () => {
         name={'email'}
         formName={'userViewForm'}
       />
+
       <UIButton text={'Начать'} type={'submit'}/>
     </form>
   )

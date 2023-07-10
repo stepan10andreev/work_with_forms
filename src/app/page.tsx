@@ -9,15 +9,12 @@ import { store } from '@/store/store'
 export default function Home() {
   return (
     <>
-    {/* <Provider store={store}> */}
       <Header>
         <UserInfo />
       </Header>
       <Content>
         <UserViewForm />
       </Content>
-    {/* </Provider> */}
-
     </>
   )
 }

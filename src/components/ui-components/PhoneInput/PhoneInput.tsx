@@ -3,7 +3,7 @@ import React, { ChangeEventHandler, FC } from 'react'
 import InputMask, { Props } from 'react-input-mask';
 import { IUIInputProps, UIInput } from '../UIInput/UIInput';
 import styles from './PhoneInput.module.scss'
-import { useAppDispatch } from '@/components/Hooks/useApp';
+import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp';
 import { updateUserViewFormData } from '@/store/userViewFormData';
 
 interface IPhoneInput extends Pick<IUIInputProps, 'heading' | 'placeholderText' | 'name'> {
@@ -11,6 +11,8 @@ interface IPhoneInput extends Pick<IUIInputProps, 'heading' | 'placeholderText' 
 }
 
 export const PhoneInput: FC<IPhoneInput> = ({mask, heading, placeholderText, name}) => {
+  const currentValue = useAppSelector((state) => state.userViewForm[name]);
+
   const dispatch = useAppDispatch();
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -21,7 +23,7 @@ export const PhoneInput: FC<IPhoneInput> = ({mask, heading, placeholderText, nam
 
 
   return (
-    <InputMask mask={mask} onChange={onChange}>
+    <InputMask mask={mask} onChange={onChange} value={currentValue}>
       <label className={styles.label}>
         <h2 className={styles.heading}>{heading}</h2>
         <input className={styles.input} placeholder={placeholderText} name={name} />
