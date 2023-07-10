@@ -9,6 +9,7 @@ import { ErrorText } from '../ErrorText/ErrorText';
 import { isValidEmail } from '@/utils/validation/isValidEmail';
 import { getCorrectInputValue } from '@/utils/getCorrectInputValue';
 import { getFullNameWithCapitalLetters } from '@/utils/getFullNameWithCapitalLetters';
+import { validateMaxLength } from '@/utils/validation/validateMaxLength';
 
 export interface IUIInputProps {
   type: string;
@@ -24,9 +25,12 @@ export interface IUIInputProps {
 //   console.log(getFullNameWithCapitalLetters('ыв уу рр'))
 // }
 
+const maxLength = 30
+
 export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName}) => {
   const [isCyrillicText, setIsCyrillicText] = useState(true);
   const [isCorrectEmail, setIsCorrectEmail] = useState(true);
+  const [isMaxLength, setIsMaxLength] = useState(true);
 
   const currentValue = useAppSelector((state) => state.userViewForm[name]);
 
@@ -44,6 +48,8 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
         } else {
           setIsCyrillicText(true)
         }
+
+        validateMaxLength(currentTarget.value, maxLength) ? setIsMaxLength(true) : setIsMaxLength(false);
 
         break;
       case 'email':
@@ -93,6 +99,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
       <input type={type} name={name} placeholder={placeholderText} value={currentValue} className={styles.input} onChange={onChange} onBlur={handleBlur}/>
       {!isCyrillicText && (<ErrorText errorText={'Введите только буквы кириллицы'}/>)}
       {!isCorrectEmail && (<ErrorText errorText={'Неправильный формат email'}/>)}
+      {!isMaxLength && (<ErrorText errorText={`Максимальная допустимая длина - ${maxLength} символов`}/>)}
     </label>
   )
 }
