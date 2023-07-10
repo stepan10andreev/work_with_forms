@@ -4,7 +4,7 @@ export const getFullNameWithCapitalLetters = (fullName: string): string => {
   const words = [];
 
   for (const initialWord of initialWords) {
-    let word = initialWord[0].toUpperCase() + initialWord.slice(1);
+    let word = initialWord[0].toUpperCase() + initialWord.slice(1).toLowerCase();
     words.push(word);
   }
 
