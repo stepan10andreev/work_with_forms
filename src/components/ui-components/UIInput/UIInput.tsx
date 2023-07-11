@@ -20,10 +20,6 @@ export interface IUIInputProps {
   onChange?: ChangeEventHandler;
   formName: string
 }
-// const onClick: MouseEventHandler<HTMLButtonElement> = (event) => {
-//   event.preventDefault();
-//   console.log(getFullNameWithCapitalLetters('ыв уу рр'))
-// }
 
 const maxLength = 30
 
