@@ -16,7 +16,6 @@ export const CustomSelect: FC<ICustomSelect> = ({ As ='h2', heading, name, formN
   const [selectValue, setSelectValue] = useState('');
 
   const onChange = (newValue: OnChangeValue<IOptions, boolean>) => {
-    // console.log(newValue)
     setSelectValue((newValue as IOptions).value)
   }
 
