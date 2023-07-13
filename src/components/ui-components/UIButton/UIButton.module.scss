@@ -21,5 +21,17 @@
 }
 
 .back {
+  color: var(--btn-bg);
   background-color: var(--white);
+  border: 2px solid var(--btn-bg);
+
+  &:focus-visible,
+  &:hover {
+    outline: none;
+    background-color: var(--input-hover);
+  }
+
+  &:active {
+    background-color: var(--input-active);
+  }
 }
