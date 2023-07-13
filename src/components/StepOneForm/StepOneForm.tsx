@@ -4,8 +4,14 @@ import { UIInput } from '../ui-components/UIInput/UIInput'
 import styles from './StepOneForm.module.scss'
 import { CustomSelect } from '../ui-components/CustomSelect/CustomSelect'
 import { UIButton } from '../ui-components/UIButton/UIButton'
+import { useRouter } from 'next/navigation'
 
 export const StepOneForm = () => {
+  const router = useRouter();
+
+  const handleClickBack = () => {
+    router.push('/')
+  }
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -56,9 +62,9 @@ export const StepOneForm = () => {
       />
 
       <div className={styles.wrapper}>
-        <UIButton text={'Назад'} type={'button'}/>
+        <UIButton text={'Назад'} type={'button'} onClick={handleClickBack} />
 
-        <UIButton text={'Далее'} type={'submit'}/>
+        <UIButton text={'Далее'} type={'submit'} />
       </div>
 
     </form>
