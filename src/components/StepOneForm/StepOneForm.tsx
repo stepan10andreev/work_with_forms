@@ -11,6 +11,8 @@ import { ErrorText } from '../ui-components/ErrorText/ErrorText'
 import { useAppDispatch } from '../Hooks/useApp'
 import { updateUserViewFormData } from '@/store/userViewFormData'
 import { updateStepOneFormData } from '@/store/stepOneFormData'
+import { validateNicknameInput } from '@/utils/validation/validateNicknameInput'
+import { validateOnlyCyrillicText } from '@/utils/validation/validateTextInput'
 
 interface IFormJson {
   name: string;
@@ -81,21 +83,26 @@ export const StepOneForm = () => {
   // функция события onChange - которая передается в UIInput
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
+    console.log('sadsa')
     switch (currentTarget.name) {
       case 'nickname':
+        currentTarget.value = validateNicknameInput(currentTarget.value);
         if (validateMaxLength(currentTarget.value, NICKNAME_MAX_LENGTH)) setIsNicknameMaxLength(true)
         break;
       case 'name':
+        currentTarget.value = validateOnlyCyrillicText(currentTarget.value);
         if (validateMaxLength(currentTarget.value, NAME_MAX_LENGTH)) setIsNameMaxLength(true)
         break;
       case 'surname':
+        currentTarget.value = validateOnlyCyrillicText(currentTarget.value);
         if (validateMaxLength(currentTarget.value, SURNAME_MAX_LENGTH)) setIsSurnameMaxLength(true)
         break;
     }
 
-    if (currentTarget.value.length > 0) setIsEmptyValue(false)
+    if (currentTarget.value.length > 0) setIsEmptyValue(false);
 
-    dispatch(updateStepOneFormData(currentTarget.name, currentTarget.value))
+    // условие если все инпуты валидны по всем условиям только тогда диспатч!!!
+    dispatch(updateStepOneFormData(currentTarget.name, currentTarget.value));
   }
 
   return (
@@ -105,7 +112,7 @@ export const StepOneForm = () => {
         heading={'Nickname'}
         placeholderText={'Введите Nickname'}
         name={'nickname'}
-        formName={'StepOneForm'}
+        formName={'stepOneForm'}
         externalOnChange={handleChange}
       />
 
@@ -114,7 +121,7 @@ export const StepOneForm = () => {
         heading={'Name'}
         placeholderText={'Введите Name'}
         name={'name'}
-        formName={'StepOneForm'}
+        formName={'stepOneForm'}
         externalOnChange={handleChange}
       />
 
@@ -123,14 +130,14 @@ export const StepOneForm = () => {
         heading={'Surname'}
         placeholderText={'Введите Surname'}
         name={'surname'}
-        formName={'StepOneForm'}
+        formName={'stepOneForm'}
         externalOnChange={handleChange}
       />
 
       <CustomSelect
         heading={'Sex'}
         name={'sex'}
-        formName={'StepOneForm'}
+        formName={'stepOneForm'}
       />
 
       {isEmptyValue && (<ErrorText errorText={'Заполните все поля ввода'}/>)}

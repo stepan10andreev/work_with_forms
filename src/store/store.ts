@@ -10,7 +10,13 @@ export const store = configureStore({
   }
 })
 
-export type RootState = ReturnType<typeof store.getState>
+
+// для универсальности в UIInput: для поиска в store конкретной FormData из state
+interface IIndexSign {
+  [key: string]: any;
+}
+
+export type RootState = ReturnType<typeof store.getState> & IIndexSign
 export type AppDispatch = typeof store.dispatch
 
 // export type AppStore = ReturnType<typeof makeStore>;

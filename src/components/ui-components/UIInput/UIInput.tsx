@@ -31,7 +31,8 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
   const [isCorrectEmail, setIsCorrectEmail] = useState(true);
   const [isMaxLength, setIsMaxLength] = useState(true);
 
-  const currentValue = useAppSelector((state) => state.userViewForm[name]);
+  // какое название формы передано - то знаечние и находится
+  const currentValue = useAppSelector((state) => state[formName][name]);
 
   const dispatch = useAppDispatch();
 
@@ -55,15 +56,6 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
         if (isValidEmail(currentTarget.value)) {
           setIsCorrectEmail(true)
         }
-
-        break;
-      case 'nickname':
-        currentTarget.value = validateNicknameInput(currentTarget.value);
-
-        break;
-      case 'name':
-      case 'surname':
-        currentTarget.value = validateOnlyCyrillicText(currentTarget.value);
 
         break;
     }

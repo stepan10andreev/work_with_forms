@@ -35,7 +35,7 @@ export const UserViewForm = () => {
 
     if (validateMaxLength(formJson.fullName as string, 30) && isCyrillic(formJson.fullName as string) && isValidEmail(formJson.email as string) && validateMinPhoneLength(getOnlyPhoneNumber(formJson.tel as string), 10)) {
       console.log(formJson)
-      router.push('/step-1')
+      router.push('/step/1')
     } else {
       console.log('Проверьте поля на корректность введенных данных')
       // здесь если нужно - логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута)

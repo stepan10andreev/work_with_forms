@@ -4,9 +4,9 @@ import { Content } from "@/components/ui-components/Content/Content";
 export default function Step1() {
   return (
     <>
-    <Content>
-      {/* <StepOneForm /> */}
-    </Content>
+      <Content>
+        <StepOneForm />
+      </Content>
     </>
   )
 }
