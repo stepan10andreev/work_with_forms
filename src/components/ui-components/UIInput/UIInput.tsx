@@ -19,14 +19,14 @@ export interface IUIInputProps {
   placeholderText?: string;
   name: string;
   As?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'div';
-  onChange?: ChangeEventHandler;
+  externalOnChange?: ChangeEventHandler;
   formName: string
 }
 
 const maxLength = 30
 
 
-export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName}) => {
+export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName, externalOnChange}) => {
   const [isCyrillicText, setIsCyrillicText] = useState(true);
   const [isCorrectEmail, setIsCorrectEmail] = useState(true);
   const [isMaxLength, setIsMaxLength] = useState(true);
@@ -110,7 +110,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
         placeholder={placeholderText}
         value={currentValue}
         className={styles.input}
-        onChange={onChange}
+        onChange={externalOnChange ? externalOnChange : onChange}
         onBlur={handleBlur}
       />
       {!isCyrillicText && (<ErrorText errorText={'Введите только буквы кириллицы'}/>)}

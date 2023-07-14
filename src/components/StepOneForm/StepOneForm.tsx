@@ -8,6 +8,9 @@ import { useRouter } from 'next/navigation'
 import { validateMaxLength } from '@/utils/validation/validateMaxLength'
 import { isEmptyInput, isFoundEmptyValue } from '@/utils/validation/isEmptyInput'
 import { ErrorText } from '../ui-components/ErrorText/ErrorText'
+import { useAppDispatch } from '../Hooks/useApp'
+import { updateUserViewFormData } from '@/store/userViewFormData'
+import { updateStepOneFormData } from '@/store/stepOneFormData'
 
 interface IFormJson {
   name: string;
@@ -27,6 +30,8 @@ export const StepOneForm = () => {
   const [isSurnameMaxLength, setIsSurnameMaxLength] = useState(true);
 
   const router = useRouter();
+
+  const dispatch = useAppDispatch();
 
   const handleClickBack = () => {
     router.push('/')
@@ -89,6 +94,8 @@ export const StepOneForm = () => {
     }
 
     if (currentTarget.value.length > 0) setIsEmptyValue(false)
+
+    dispatch(updateStepOneFormData(currentTarget.name, currentTarget.value))
   }
 
   return (
@@ -99,6 +106,7 @@ export const StepOneForm = () => {
         placeholderText={'Введите Nickname'}
         name={'nickname'}
         formName={'StepOneForm'}
+        externalOnChange={handleChange}
       />
 
       <UIInput
@@ -107,6 +115,7 @@ export const StepOneForm = () => {
         placeholderText={'Введите Name'}
         name={'name'}
         formName={'StepOneForm'}
+        externalOnChange={handleChange}
       />
 
       <UIInput
@@ -115,6 +124,7 @@ export const StepOneForm = () => {
         placeholderText={'Введите Surname'}
         name={'surname'}
         formName={'StepOneForm'}
+        externalOnChange={handleChange}
       />
 
       <CustomSelect
