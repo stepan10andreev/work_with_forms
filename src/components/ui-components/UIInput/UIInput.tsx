@@ -10,7 +10,7 @@ import { isValidEmail } from '@/utils/validation/isValidEmail';
 import { getCorrectInputValue } from '@/utils/getCorrectInputValue';
 import { getFullNameWithCapitalLetters } from '@/utils/getFullNameWithCapitalLetters';
 import { validateMaxLength } from '@/utils/validation/validateMaxLength';
-import { validateMinPhoneLength } from '@/utils/validateMinPhoneLength';
+import { validateMinPhoneLength } from '@/utils/validation/validateMinPhoneLength';
 import { validateNicknameInput } from '@/utils/validation/validateNicknameInput';
 
 export interface IUIInputProps {

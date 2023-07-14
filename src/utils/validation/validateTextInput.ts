@@ -1,3 +1,5 @@
+import { capitalizeFirstLetter } from "../capitalizeFirstLetter";
+
 export const validateTextInput = (value: string) => {
   // только русские буквы
   // return value = value.replace(/[^а-яё-\s]/gi, '');
@@ -7,9 +9,9 @@ export const validateTextInput = (value: string) => {
 
 
 export const validateOnlyCyrillicText = (value: string) => {
-  // только русские буквы
-  // return value = value.replace(/[^а-яё-\s]/gi, '');
-  // и русские и английские
-  return value.replace(/[^а-яё]/gi, '');
+  // делаем первую букву заглавную
+  let newValue = capitalizeFirstLetter(value)
+  // только русские буквы и 1 слово без пробелов и специальных символов
+  return newValue.replace(/[^а-яё]/gi, '');
 };
 

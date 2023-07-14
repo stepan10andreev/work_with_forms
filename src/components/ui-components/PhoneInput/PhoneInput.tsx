@@ -6,7 +6,7 @@ import styles from './PhoneInput.module.scss'
 import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp';
 import { updateUserViewFormData } from '@/store/userViewFormData';
 import { getOnlyPhoneNumber } from '@/utils/getOnlyPhoneNumber';
-import { validateMinPhoneLength } from '@/utils/validateMinPhoneLength';
+import { validateMinPhoneLength } from '@/utils/validation/validateMinPhoneLength';
 import { ErrorText } from '../ErrorText/ErrorText';
 
 interface IPhoneInput extends Pick<IUIInputProps, 'heading' | 'placeholderText' | 'name'> {

@@ -8,7 +8,7 @@ import { validateMaxLength } from '@/utils/validation/validateMaxLength'
 import { isCyrillic } from '@/utils/validation/isCyrillic'
 import { isValidEmail } from '@/utils/validation/isValidEmail'
 import { useRouter } from 'next/navigation'
-import { validateMinPhoneLength } from '@/utils/validateMinPhoneLength'
+import { validateMinPhoneLength } from '@/utils/validation/validateMinPhoneLength'
 import { getOnlyPhoneNumber } from '@/utils/getOnlyPhoneNumber'
 
 // interface IFormJson {
