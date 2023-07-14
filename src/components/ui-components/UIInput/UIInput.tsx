@@ -10,6 +10,7 @@ import { isValidEmail } from '@/utils/validation/isValidEmail';
 import { getCorrectInputValue } from '@/utils/getCorrectInputValue';
 import { getFullNameWithCapitalLetters } from '@/utils/getFullNameWithCapitalLetters';
 import { validateMaxLength } from '@/utils/validation/validateMaxLength';
+import { validateMinPhoneLength } from '@/utils/validateMinPhoneLength';
 
 export interface IUIInputProps {
   type: string;
@@ -23,6 +24,7 @@ export interface IUIInputProps {
 
 const maxLength = 30
 
+
 export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName}) => {
   const [isCyrillicText, setIsCyrillicText] = useState(true);
   const [isCorrectEmail, setIsCorrectEmail] = useState(true);
@@ -35,8 +37,8 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
 
-    switch (currentTarget.type) {
-      case 'text':
+    switch (currentTarget.name) {
+      case 'fullName':
         currentTarget.value = validateTextInput(currentTarget.value);
 
         if (!isCyrillic(currentTarget.value)) {
@@ -65,8 +67,8 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
   const handleBlur: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
 
-    switch (currentTarget.type) {
-      case 'text':
+    switch (currentTarget.name) {
+      case 'fullName':
         currentTarget.value = getCorrectInputValue(currentTarget.value);
 
         dispatch(updateUserViewFormData(currentTarget.name, currentTarget.value));
@@ -92,7 +94,15 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
   return (
     <label className={styles.label}>
       <As className={styles.heading}>{heading}</As>
-      <input type={type} name={name} placeholder={placeholderText} value={currentValue} className={styles.input} onChange={onChange} onBlur={handleBlur}/>
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholderText}
+        value={currentValue}
+        className={styles.input}
+        onChange={onChange}
+        onBlur={handleBlur}
+      />
       {!isCyrillicText && (<ErrorText errorText={'Введите только буквы кириллицы'}/>)}
       {!isCorrectEmail && (<ErrorText errorText={'Неправильный формат email'}/>)}
       {!isMaxLength && (<ErrorText errorText={`Максимальная допустимая длина - ${maxLength} символов`}/>)}
