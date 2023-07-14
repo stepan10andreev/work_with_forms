@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEventHandler, useState } from 'react'
+import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import { UIInput } from '../ui-components/UIInput/UIInput'
 import styles from './StepOneForm.module.scss'
 import { CustomSelect } from '../ui-components/CustomSelect/CustomSelect'
@@ -37,11 +37,6 @@ export const StepOneForm = () => {
 
     const form = event.target as HTMLFormElement;
 
-    // вариант без типизации
-    // const formData = new FormData(form);
-    // const formJson = Object.fromEntries(formData.entries());
-
-    // 2 вариант с типизацией => тогда не нвдо указывать 'as string' дальше
     const formData = new FormData(form) as unknown as Iterable<[IFormJson, FormDataEntryValue]>;
     const formJson: IFormJson = Object.fromEntries(formData);
 
@@ -51,6 +46,11 @@ export const StepOneForm = () => {
                                 validateMaxLength(formJson.surname, SURNAME_MAX_LENGTH)
 
     if (ALL_INPUTS_IS_VALID) {
+      setIsEmptyValue(false);
+      setIsNicknameMaxLength(true);
+      setIsNameMaxLength(true);
+      setIsSurnameMaxLength(true);
+
       console.log(formJson)
       router.push('/step-2')
     } else {
@@ -72,6 +72,24 @@ export const StepOneForm = () => {
       }
     }
   };
+
+  // функция события onChange - которая передается в UIInput
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const currentTarget = event.target;
+    switch (currentTarget.name) {
+      case 'nickname':
+        if (validateMaxLength(currentTarget.value, NICKNAME_MAX_LENGTH)) setIsNicknameMaxLength(true)
+        break;
+      case 'name':
+        if (validateMaxLength(currentTarget.value, NAME_MAX_LENGTH)) setIsNameMaxLength(true)
+        break;
+      case 'surname':
+        if (validateMaxLength(currentTarget.value, SURNAME_MAX_LENGTH)) setIsSurnameMaxLength(true)
+        break;
+    }
+
+    if (currentTarget.value.length > 0) setIsEmptyValue(false)
+  }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
