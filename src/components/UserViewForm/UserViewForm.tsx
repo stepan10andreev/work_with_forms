@@ -8,6 +8,14 @@ import { validateMaxLength } from '@/utils/validation/validateMaxLength'
 import { isCyrillic } from '@/utils/validation/isCyrillic'
 import { isValidEmail } from '@/utils/validation/isValidEmail'
 import { useRouter } from 'next/navigation'
+import { validateMinPhoneLength } from '@/utils/validateMinPhoneLength'
+import { getOnlyPhoneNumber } from '@/utils/getOnlyPhoneNumber'
+
+// interface IFormJson {
+//   fullName: string;
+//   email: string;
+//   tel: string;
+// }
 
 export const UserViewForm = () => {
   const router = useRouter();
@@ -17,14 +25,20 @@ export const UserViewForm = () => {
 
     const form = event.target as HTMLFormElement;
 
+    // // 1 вариант без типизации
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    if (validateMaxLength(formJson.fullName as string, 30) && isCyrillic(formJson.fullName as string) && isValidEmail(formJson.email as string)) {
+    // // 2 вариант с типизацией => тогда не нвдо указывать 'as string' дальше
+    // const formData = new FormData(form) as unknown as Iterable<[IFormJson, FormDataEntryValue]>;
+    // const formJson: IFormJson = Object.fromEntries(formData);
+
+    if (validateMaxLength(formJson.fullName as string, 30) && isCyrillic(formJson.fullName as string) && isValidEmail(formJson.email as string) && validateMinPhoneLength(getOnlyPhoneNumber(formJson.tel as string), 10)) {
       console.log(formJson)
       router.push('/step-1')
     } else {
       console.log('Проверьте поля на корректность введенных данных')
+      // здесь если нужно - логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута)
     }
   };
 
