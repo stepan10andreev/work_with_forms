@@ -62,6 +62,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
 
         break;
       case 'name':
+      case 'surname':
         currentTarget.value = validateOnlyCyrillicText(currentTarget.value);
 
         break;
