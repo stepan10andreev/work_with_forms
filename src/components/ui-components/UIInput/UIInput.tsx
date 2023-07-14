@@ -3,7 +3,7 @@ import React, { ChangeEventHandler, FC, MouseEventHandler, useEffect, useState }
 import styles from './Input.module.scss'
 import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp';
 import { capitalizeLettersOfFullName, updateUserViewFormData } from '@/store/userViewFormData';
-import { validateTextInput } from '@/utils/validation/validateTextInput';
+import { validateOnlyCyrillicText, validateTextInput } from '@/utils/validation/validateTextInput';
 import { isCyrillic } from '@/utils/validation/isCyrillic';
 import { ErrorText } from '../ErrorText/ErrorText';
 import { isValidEmail } from '@/utils/validation/isValidEmail';
@@ -11,6 +11,7 @@ import { getCorrectInputValue } from '@/utils/getCorrectInputValue';
 import { getFullNameWithCapitalLetters } from '@/utils/getFullNameWithCapitalLetters';
 import { validateMaxLength } from '@/utils/validation/validateMaxLength';
 import { validateMinPhoneLength } from '@/utils/validateMinPhoneLength';
+import { validateNicknameInput } from '@/utils/validation/validateNicknameInput';
 
 export interface IUIInputProps {
   type: string;
@@ -54,6 +55,14 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
         if (isValidEmail(currentTarget.value)) {
           setIsCorrectEmail(true)
         }
+
+        break;
+      case 'nickname':
+        currentTarget.value = validateNicknameInput(currentTarget.value);
+
+        break;
+      case 'name':
+        currentTarget.value = validateOnlyCyrillicText(currentTarget.value);
 
         break;
     }
