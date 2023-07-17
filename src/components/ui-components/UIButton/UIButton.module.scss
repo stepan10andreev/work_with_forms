@@ -46,14 +46,28 @@
   background-color: var(--white);
   border: 2px solid var(--btn-bg);
 
-  &:focus-visible,
+  &:focus-visible ,
   &:hover {
     outline: none;
     background-color: var(--btn-hover);
   }
 
+  & > svg > path,
+  & > svg > path{
+    transition: 0.3s;
+  }
+
+  &:focus-visible > svg > path,
+  &:hover > svg > path{
+    fill: var(--white);
+  }
+
   &:active {
     background-color: var(--btn-active);
+  }
+
+  &:active > svg > path{
+    fill: var(--white);
   }
 }
 

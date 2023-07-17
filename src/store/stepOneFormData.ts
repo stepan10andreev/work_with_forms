@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-interface IStepOneFormPayload {
+export interface IStepOneFormPayload {
   prop: string;
   value: string;
 }

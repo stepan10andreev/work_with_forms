@@ -1,0 +1,15 @@
+.advWrapper {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  & > label {
+    max-width: 400px;
+  }
+
+  & > button {
+    width: fit-content;
+  }
+}

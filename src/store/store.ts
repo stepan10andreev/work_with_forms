@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userViewFormReducer from './userViewFormData';
 import stepOneFormReducer from './stepOneFormData';
-import stepTwoFormReducer from './stepOneFormData';
+import stepTwoFormReducer from './stepTwoFormData';
 import { createWrapper } from 'next-redux-wrapper';
 
 export const store = configureStore({

@@ -1,17 +1,15 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
+import { IStepOneFormPayload } from "./stepOneFormData";
 
-interface IStepOneFormPayload {
-  prop: string;
-  value: string;
-}
+type IStepTwoFormPayload = IStepOneFormPayload;
 
-interface IAdvantagesInputElements {
+interface IAdvantageInputElements {
   id: string;
 }
 
 interface IStepTwoForm {
-  [k: string]: string | string[] | IAdvantagesInputElements[];
-  advantageInputElements: IAdvantagesInputElements[];
+  [k: string]: string | string[] | IAdvantageInputElements[];
+  advantageInputElements: IAdvantageInputElements[];
   advantages: string[];
   checkboxGroup: string[];
   radioGroup: string;
@@ -29,7 +27,7 @@ const stepTwoFormSlice = createSlice({
   initialState,
   reducers: {
     updateStepTwoFormData: {
-      reducer (state, action: PayloadAction<IStepOneFormPayload>) {
+      reducer (state, action: PayloadAction<IStepTwoFormPayload>) {
         state[action.payload.prop] = action.payload.value;
       },
       prepare (prop: string, value: string) {
@@ -60,6 +58,6 @@ const stepTwoFormSlice = createSlice({
   }
 })
 
-export const { updateStepTwoFormData } = stepTwoFormSlice.actions;
+export const { updateStepTwoFormData, addAdvantageInput, deleteAdvantageInput } = stepTwoFormSlice.actions;
 
 export default stepTwoFormSlice.reducer;
