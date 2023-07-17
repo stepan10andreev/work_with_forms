@@ -3,13 +3,11 @@ import styles from './Checkbox.module.scss';
 import { IUIInputProps } from "../UIInput/UIInput";
 import clsx from "clsx";
 
-interface ICheckbox extends Pick<IUIInputProps, 'name' | 'type' | 'placeholderText'> {
-  isChecked?: boolean;
-  setIsChecked?: React.Dispatch<React.SetStateAction<boolean>>;
+export interface ICheckbox extends Pick<IUIInputProps, 'name' | 'placeholderText'> {
   value: string;
 }
 
-export const Checkbox: FC<ICheckbox> = ({ type, name, placeholderText, value}) => {
+export const Checkbox: FC<ICheckbox> = ({ name, placeholderText, value}) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = () => {
@@ -19,7 +17,7 @@ export const Checkbox: FC<ICheckbox> = ({ type, name, placeholderText, value}) =
   return (
     <label className={styles.label}>
       <input
-        type={type}
+        type='checkbox'
         name={name}
         value={value}
         onChange={handleChange}

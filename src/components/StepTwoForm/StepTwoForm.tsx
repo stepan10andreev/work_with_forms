@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
 import { AdvantageInput } from './AdvantageInput/AdvantageInput'
 import { addAdvantageInput } from '@/store/stepTwoFormData'
 import { Checkbox } from '../ui-components/Checkbox/Checkbox'
+import { RadioButton } from '../ui-components/RadioButton/RadioButton'
 
 export const StepTwoForm = () => {
   const advantageInputs = useAppSelector((state) => state.stepTwoForm.advantageInputElements);
@@ -38,16 +39,19 @@ export const StepTwoForm = () => {
       <h2 className={styles.title}>Checkbox group</h2>
 
       <div className={styles.checkboxWrapper}>
-        <Checkbox type={'checkbox'} placeholderText={'Вариант 1'} name={'Опции'} value={'Вариант 1'}/>
-        <Checkbox type={'checkbox'} placeholderText={'Вариант 2'} name={'Опции'} value={'Вариант 2'} />
-        <Checkbox type={'checkbox'} placeholderText={'Вариант 3'} name={'Опции'} value={'Вариант 3'} />
+        <Checkbox placeholderText={'Вариант 1'} name={'checkbox'} value={'Вариант 1'}/>
+        <Checkbox placeholderText={'Вариант 2'} name={'checkbox'} value={'Вариант 2'} />
+        <Checkbox placeholderText={'Вариант 3'} name={'checkbox'} value={'Вариант 3'} />
       </div>
 
 
+      <h2 className={styles.title}>Radio group</h2>
 
-
-
-
+      <div className={styles.radioWrapper}>
+        <RadioButton placeholderText={'Вариант 1'} name={'radio'} value={'Вариант 1'}/>
+        <RadioButton placeholderText={'Вариант 2'} name={'radio'} value={'Вариант 2'} />
+        <RadioButton placeholderText={'Вариант 3'} name={'radio'} value={'Вариант 3'}/>
+      </div>
 
     </form>
   )
