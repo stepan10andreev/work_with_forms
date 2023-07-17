@@ -1,0 +1,29 @@
+.form {
+  & > button[name = 'addButton'] {
+    max-width: 45px;
+  }
+
+  & > .title {
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+.advWrapper {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+
+  & > label {
+    max-width: 300px;
+  }
+
+  & > button {
+    width: fit-content;
+  }
+}

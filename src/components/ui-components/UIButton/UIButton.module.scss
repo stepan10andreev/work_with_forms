@@ -35,3 +35,57 @@
     background-color: var(--input-active);
   }
 }
+
+.add {
+  padding: 12px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  color: var(--btn-bg);
+  background-color: var(--white);
+  border: 2px solid var(--btn-bg);
+
+  &:focus-visible,
+  &:hover {
+    outline: none;
+    background-color: var(--btn-hover);
+  }
+
+  &:active {
+    background-color: var(--btn-active);
+  }
+}
+
+.delete {
+  padding: 0;
+  background-color: transparent;
+
+  &:focus-visible,
+  &:hover {
+    outline: none;
+    background-color: transparent;
+  }
+
+  &:active {
+    background-color: transparent;
+  }
+
+  & > svg > path,
+  & > svg > path{
+    transition: 0.3s;
+  }
+
+  &:focus-visible > svg > path,
+  &:hover > svg > path{
+    fill: var(--red-light);
+    outline: none;
+    background-color: none;
+
+  }
+
+  &:active > svg > path{
+    fill: var(--red-accept);
+    background-color: none;
+  }
+}

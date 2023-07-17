@@ -18,7 +18,7 @@ export interface IUIInputProps {
   heading?: string;
   placeholderText?: string;
   name: string;
-  As?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'div';
+  As?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'div' | null;
   externalOnChange?: ChangeEventHandler;
   formName: string
 }
@@ -95,7 +95,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
 
   return (
     <label className={styles.label}>
-      <As className={styles.heading}>{heading}</As>
+      {As != null && <As className={styles.heading}>{heading}</As>}
       <input
         type={type}
         name={name}

@@ -3,6 +3,8 @@
 
 :root {
   --white:                      #FFFFFF;
+  --red-light:                  rgba(255, 0, 0, 0.5);
+  --red-accept:                 rgba(194, 0, 0, 0.764);
   --turquoise:                  #D5E4F7;
   --text-color:                 #333333;
   --btn-bg:                     #5558FA;

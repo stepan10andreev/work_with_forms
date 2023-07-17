@@ -36,13 +36,6 @@
 
 .step.done {
   &:not(:last-child):after {
-    // content: "";
-    // position: relative;
-    // bottom: 75%;
-    // left: 50%;
-    // height: 5px;
-    // width: 100%;
     background-color: var(--btn-bg);
-    // z-index: -10;
   }
 }
