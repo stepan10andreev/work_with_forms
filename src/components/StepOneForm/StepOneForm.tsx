@@ -58,8 +58,9 @@ export const StepOneForm = () => {
       setIsNameMaxLength(true);
       setIsSurnameMaxLength(true);
 
-      console.log(formJson)
-      router.push('/step-2')
+      console.log(formJson);
+
+      router.push('/step/2');
     } else {
       // здесь если нужно - логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута)
       if (isFoundEmptyValue(Object.values(formJson))) {

@@ -1,6 +1,6 @@
 import { Content } from "@/components/ui-components/Content/Content";
 
-export default function Step2() {
+export default function StepTwoPage() {
   return (
     <>
       <Content>
