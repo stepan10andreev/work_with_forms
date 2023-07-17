@@ -10,6 +10,10 @@
     font-size: 18px;
     line-height: 20px;
   }
+
+  & > .title:not(:first-child) {
+    margin-top: 20px
+  }
 }
 
 .advWrapper {
@@ -26,4 +30,10 @@
   & > button {
     width: fit-content;
   }
+}
+
+.checkboxWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

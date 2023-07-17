@@ -8,6 +8,7 @@ import { DeleteButtonIcon } from '../ui-components/Icons/DeleteButtonIcon'
 import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
 import { AdvantageInput } from './AdvantageInput/AdvantageInput'
 import { addAdvantageInput } from '@/store/stepTwoFormData'
+import { Checkbox } from '../ui-components/Checkbox/Checkbox'
 
 export const StepTwoForm = () => {
   const advantageInputs = useAppSelector((state) => state.stepTwoForm.advantageInputElements);
@@ -33,6 +34,19 @@ export const StepTwoForm = () => {
         icon={<AddButtonIcon />}
         onClick={addInputOnCLick}
       />
+
+      <h2 className={styles.title}>Checkbox group</h2>
+
+      <div className={styles.checkboxWrapper}>
+        <Checkbox type={'checkbox'} placeholderText={'Вариант 1'} name={'Опции'} value={'Вариант 1'}/>
+        <Checkbox type={'checkbox'} placeholderText={'Вариант 2'} name={'Опции'} value={'Вариант 2'} />
+        <Checkbox type={'checkbox'} placeholderText={'Вариант 3'} name={'Опции'} value={'Вариант 3'} />
+      </div>
+
+
+
+
+
 
 
     </form>
