@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEventHandler } from 'react'
+import React, { ChangeEventHandler, FormEventHandler } from 'react'
 import { UIInput } from '../ui-components/UIInput/UIInput'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import { AddButtonIcon } from '../ui-components/Icons/AddButtonIcon'
@@ -7,7 +7,7 @@ import styles from './StepTwoForm.module.scss'
 import { DeleteButtonIcon } from '../ui-components/Icons/DeleteButtonIcon'
 import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
 import { AdvantageInput } from './AdvantageInput/AdvantageInput'
-import { addAdvantageInput } from '@/store/stepTwoFormData'
+import { addAdvantageInput, updateStepTwoFormData } from '@/store/stepTwoFormData'
 import { Checkbox } from '../ui-components/Checkbox/Checkbox'
 import { RadioButton } from '../ui-components/RadioButton/RadioButton'
 
@@ -31,13 +31,14 @@ export const StepTwoForm = () => {
     console.log(formJson)
   }
 
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
 
       <h2 className={styles.title}>Advantages</h2>
 
-      {advantageInputs.map(advantage => (
-        <AdvantageInput key={advantage.id} id={advantage.id}/>
+      {advantageInputs.map((advantage, index)=> (
+        <AdvantageInput key={advantage.id} id={advantage.id} index={index}/>
       ))}
 
       <UIButton

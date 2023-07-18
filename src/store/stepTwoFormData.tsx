@@ -3,6 +3,8 @@ import { IStepOneFormPayload } from "./stepOneFormData";
 
 interface IStepTwoFormPayload extends IStepOneFormPayload {
   method?: EMethods;
+  index?: number;
+  id?: string;
 }
 
 export enum EMethods {
@@ -42,15 +44,33 @@ const stepTwoFormSlice = createSlice({
         if (action.payload.prop === 'radioOption') {
           state.radioOption = action.payload.value
         }
+        // // вариант с передачей индекса
+        // if (action.payload.prop === 'advantages' && (action.payload.method != 'DELETE')) {
+        //   const currentValue = action.payload.value;
+        //   if (action.payload.index === undefined) return;
+        //   state.advantages[action.payload.index] = currentValue
+        // } else {
+        //   // удаление при передачи метода (не нужен так как удаляем знаечние инпута из массива при удалении самого инпута в deleteAdvantageInput)
+        //   state.advantages.splice(action.payload.index as number);
+        // }
 
-        // state[action.payload.prop] = action.payload.value;
+        // вариант с передачей id  и синхронизаиецй с массивом самих инпутов
+        if (action.payload.prop === 'advantages' && (action.payload.method != 'DELETE')) {
+          const currentValue = action.payload.value;
+          const currentChangedInput = state.advantageInputElements.find(input => input.id === action.payload.id)
+          if(!currentChangedInput) return;
+          const index = state.advantageInputElements.indexOf(currentChangedInput);
+          state.advantages[index] = currentValue
+        }
       },
-      prepare (prop: string, value: string, method?: EMethods) {
+      prepare (prop: string, value: string, method?: EMethods, id?: string, index?: number) {
         return {
           payload:{
             prop,
             value,
-            method
+            method,
+            index,
+            id
           }
         }
       },
@@ -60,10 +80,18 @@ const stepTwoFormSlice = createSlice({
         id: nanoid()
       }
       state.advantageInputElements = [...state.advantageInputElements, input]
+      // можно при добавлении инпута сразу добавлять пустое значение в массив advantages (необязательно)
     },
     deleteAdvantageInput: {
       reducer (state, action: PayloadAction<string>) {
-      state.advantageInputElements =  state.advantageInputElements.filter((advantage) => advantage.id != action.payload)
+        // удаляем и значение инпута из state.advantages при удалении самого инпута
+        const deletedInput = state.advantageInputElements.find(advantage => advantage.id === action.payload);
+        if(!deletedInput) return;
+        const index = state.advantageInputElements.indexOf(deletedInput);
+        state.advantages.splice(index, 1);
+
+        // удаляем сам инпут
+        state.advantageInputElements =  state.advantageInputElements.filter((advantage) => advantage.id != action.payload)
     },
     prepare (id: string) {
       return {

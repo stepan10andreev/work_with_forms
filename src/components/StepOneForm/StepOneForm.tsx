@@ -84,7 +84,6 @@ export const StepOneForm = () => {
   // функция события onChange - которая передается в UIInput
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
-    console.log('sadsa')
     switch (currentTarget.name) {
       case 'nickname':
         currentTarget.value = validateNicknameInput(currentTarget.value);
