@@ -18,12 +18,9 @@ export const Checkbox: FC<ICheckbox> = ({ name, placeholderText, value}) => {
     setIsChecked(!isChecked)
     // isChecked по событию будет false, и станет true только после события - нужен для смены стилизации
     // для диспатча нам нужно актуальное состояние инпута поэтому используем event.currentTarget.checked
-    if (event.currentTarget.checked) {
-      dispatch(updateStepTwoFormData(name, value))
-    }
-    if (!event.currentTarget.checked) {
-      dispatch(updateStepTwoFormData(name, value, EMethods.delete))
-    }
+    event.currentTarget.checked ?
+      dispatch(updateStepTwoFormData(name, value)) :
+      dispatch(updateStepTwoFormData(name, value, EMethods.delete));
   };
 
   return (

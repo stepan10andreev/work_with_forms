@@ -18,13 +18,13 @@ interface IStepTwoForm {
   advantageInputElements: IAdvantageInputElements[];
   advantages: string[];
   checkboxOptions: string[];
-  radioGroup: string;
+  radioOption: string;
 }
 
 const initialState: IStepTwoForm = {
   advantages: [],
   checkboxOptions: [],
-  radioGroup: '',
+  radioOption: '',
   advantageInputElements: [{id: nanoid()}],
 }
 
@@ -39,6 +39,10 @@ const stepTwoFormSlice = createSlice({
         } else {
           state.checkboxOptions = state.checkboxOptions.filter((option) => option != action.payload.value)
         }
+        if (action.payload.prop === 'radioOption') {
+          state.radioOption = action.payload.value
+        }
+
         // state[action.payload.prop] = action.payload.value;
       },
       prepare (prop: string, value: string, method?: EMethods) {

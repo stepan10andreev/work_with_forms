@@ -61,9 +61,9 @@ export const StepTwoForm = () => {
       <h2 className={styles.title}>Radio group</h2>
 
       <div className={styles.radioWrapper}>
-        <RadioButton placeholderText={'Вариант 1'} name={'radioOptions'} value={'Вариант 1'}/>
-        <RadioButton placeholderText={'Вариант 2'} name={'radioOptions'} value={'Вариант 2'} />
-        <RadioButton placeholderText={'Вариант 3'} name={'radioOptions'} value={'Вариант 3'}/>
+        <RadioButton placeholderText={'Вариант 1'} name={'radioOption'} value={'Вариант 1'}/>
+        <RadioButton placeholderText={'Вариант 2'} name={'radioOption'} value={'Вариант 2'} />
+        <RadioButton placeholderText={'Вариант 3'} name={'radioOption'} value={'Вариант 3'}/>
       </div>
 
       <div className={styles.wrapper}>
