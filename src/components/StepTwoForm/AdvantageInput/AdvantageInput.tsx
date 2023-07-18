@@ -3,7 +3,7 @@ import { UIButton } from '@/components/ui-components/UIButton/UIButton'
 import { IUIInputProps, UIInput } from '@/components/ui-components/UIInput/UIInput'
 import React, { ChangeEventHandler, FC, useState } from 'react'
 import styles from './AdvantageInput.module.scss'
-import { useAppDispatch } from '@/components/Hooks/useApp'
+import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp'
 import { deleteAdvantageInput, updateStepTwoFormData } from '@/store/stepTwoFormData'
 import { validateOnlyCyrillicText } from '@/utils/validation/validateTextInput'
 import { validateMaxLength } from '@/utils/validation/validateMaxLength'
@@ -18,6 +18,10 @@ export const ADVANTAGE_INPUT_MAX_LENGTH = 30
 
 export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index}) => {
   const [isMaxLength, setIsMaxLength] = useState(true);
+
+  const indexOfValue = useAppSelector((state) => state.stepTwoForm.advantageInputElements.findIndex(input => input.id === id));
+  const currentValue = useAppSelector((state) => state.stepTwoForm.advantages[indexOfValue]);
+
   const dispatch = useAppDispatch();
 
   const deleteInputOnCLick = () => {
@@ -25,27 +29,41 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index}) => {
   }
 
   const handleChangeAdvantages: ChangeEventHandler<HTMLInputElement>  = (event) => {
-    const currentTarget = event.currentTarget;
+    const currentTarget = event.target;
+
+    currentTarget.value = validateOnlyCyrillicText(currentTarget.value)
+
     // // вариант с передачей индекса
     // dispatch(updateStepTwoFormData(currentTarget.name, currentTarget.value, undefined, undefined, index))
+
     // вариант с передачей id
     dispatch(updateStepTwoFormData(currentTarget.name, currentTarget.value, undefined, id))
 
-    currentTarget.value = validateOnlyCyrillicText(currentTarget.value)
 
     validateMaxLength(currentTarget.value, ADVANTAGE_INPUT_MAX_LENGTH) ? setIsMaxLength(true) : setIsMaxLength(false);
   }
 
   return (
     <div className={styles.advWrapper}>
-      <UIInput
+      {/* <UIInput
         As={null}
         type={'text'}
         placeholderText={'Введите преимущества'}
         name={'advantages'}
         formName={'stepOneForm'}
         externalOnChange={handleChangeAdvantages}
-      />
+        externalValue={currentValue}
+      /> */}
+      <label>
+        <input
+          type="text"
+          placeholder='Введите преимущества'
+          name='advantages'
+          value={currentValue}
+          onChange={handleChangeAdvantages}
+          className={styles.input}
+        />
+      </label>
 
       <UIButton
         name={'deleteButton'}

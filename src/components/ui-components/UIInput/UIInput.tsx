@@ -20,7 +20,7 @@ export interface IUIInputProps {
   name: string;
   As?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'p' | 'div' | null;
   externalOnChange?: ChangeEventHandler;
-  formName: string
+  formName: string;
 }
 
 const maxLength = 30
