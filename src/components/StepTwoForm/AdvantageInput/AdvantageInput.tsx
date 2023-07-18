@@ -5,6 +5,7 @@ import React, { ChangeEventHandler, FC } from 'react'
 import styles from './AdvantageInput.module.scss'
 import { useAppDispatch } from '@/components/Hooks/useApp'
 import { deleteAdvantageInput, updateStepTwoFormData } from '@/store/stepTwoFormData'
+import { validateOnlyCyrillicText } from '@/utils/validation/validateTextInput'
 
 interface IAdvantageInputProps extends Pick<IUIInputProps, 'externalOnChange'> {
   id: string;
@@ -24,6 +25,8 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, externalOnChange,
     // dispatch(updateStepTwoFormData(currentTarget.name, currentTarget.value, undefined, undefined, index))
     // вариант с передачей id
     dispatch(updateStepTwoFormData(currentTarget.name, currentTarget.value, undefined, id))
+
+    currentTarget.value = validateOnlyCyrillicText(currentTarget.value)
   }
 
   return (
