@@ -14,6 +14,10 @@
   & > .title:not(:first-child) {
     margin-top: 30px
   }
+
+  & > .wrapper {
+    margin-top: 50px;
+  }
 }
 
 .advWrapper {
@@ -45,3 +49,15 @@
   flex-direction: column;
   gap: 10px;
 }
+
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & > button {
+    max-width: 75px;
+  }
+}
+

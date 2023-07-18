@@ -1,7 +1,13 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 import { IStepOneFormPayload } from "./stepOneFormData";
 
-type IStepTwoFormPayload = IStepOneFormPayload;
+interface IStepTwoFormPayload extends IStepOneFormPayload {
+  method?: EMethods;
+}
+
+export enum EMethods {
+  delete = "DELETE",
+}
 
 interface IAdvantageInputElements {
   id: string;
@@ -11,13 +17,13 @@ interface IStepTwoForm {
   [k: string]: string | string[] | IAdvantageInputElements[];
   advantageInputElements: IAdvantageInputElements[];
   advantages: string[];
-  checkboxGroup: string[];
+  checkboxOptions: string[];
   radioGroup: string;
 }
 
 const initialState: IStepTwoForm = {
   advantages: [],
-  checkboxGroup: [],
+  checkboxOptions: [],
   radioGroup: '',
   advantageInputElements: [{id: nanoid()}],
 }
@@ -28,13 +34,19 @@ const stepTwoFormSlice = createSlice({
   reducers: {
     updateStepTwoFormData: {
       reducer (state, action: PayloadAction<IStepTwoFormPayload>) {
-        state[action.payload.prop] = action.payload.value;
+        if ((action.payload.prop === 'checkboxOptions') && (action.payload.method != 'DELETE')) {
+          state.checkboxOptions = [...state.checkboxOptions, action.payload.value]
+        } else {
+          state.checkboxOptions = state.checkboxOptions.filter((option) => option != action.payload.value)
+        }
+        // state[action.payload.prop] = action.payload.value;
       },
-      prepare (prop: string, value: string) {
+      prepare (prop: string, value: string, method?: EMethods) {
         return {
           payload:{
             prop,
             value,
+            method
           }
         }
       },
