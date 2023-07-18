@@ -20,7 +20,7 @@ export const Checkbox: FC<ICheckbox> = ({ name, placeholderText, value}) => {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     // setIsChecked(!isChecked)
-
+    console.log(event.currentTarget.checked)
     // isChecked по событию будет false, и станет true только после события - нужен для смены стилизации
     // для диспатча нам нужно актуальное состояние инпута поэтому используем event.currentTarget.checked
     event.currentTarget.checked ?

@@ -38,9 +38,10 @@ const stepTwoFormSlice = createSlice({
       reducer (state, action: PayloadAction<IStepTwoFormPayload>) {
         if ((action.payload.prop === 'checkboxOptions') && (action.payload.method != 'DELETE')) {
           state.checkboxOptions = [...state.checkboxOptions, action.payload.value]
-        } else {
+        } else if ((action.payload.prop === 'checkboxOptions') && (action.payload.method === 'DELETE')) {
           state.checkboxOptions = state.checkboxOptions.filter((option) => option != action.payload.value)
         }
+
         if (action.payload.prop === 'radioOption') {
           state.radioOption = action.payload.value
         }

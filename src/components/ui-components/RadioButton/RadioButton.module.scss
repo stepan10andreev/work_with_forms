@@ -47,6 +47,11 @@
     border-color: #80bdff;
   }
 
+  // //  стили для радиокнопки, находящейся в фокусе и не находящейся в состоянии checked но зависящие от класса
+  // &.checked + span::before {
+  //   border-color: #80bdff;
+  // }
+
   /* стили при наведении курсора на радио */
   & > input:not(:disabled):not(:checked) + span:hover::before {
     border-color: #0054b5;
@@ -59,10 +64,17 @@
   }
 
   /* стили для радиокнопки, находящейся в состоянии checked */
-  & > input:checked + span::before {
+  // & > input:checked + span::before {
+  //   border-color: var(--btn-active);
+  //   background-color: var(--btn-hover);
+  // }
+
+  /* стили для радиокнопки, находящейся в состоянии checked зависящие от класса */
+  & > .checked + span::before {
     border-color: var(--btn-active);
     background-color: var(--btn-hover);
   }
+
   /* стили для радиокнопки, находящейся в состоянии disabled */
   & > input:disabled + span::before {
     background-color: #e9ecef;

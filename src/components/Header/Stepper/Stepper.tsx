@@ -12,7 +12,6 @@ export const Stepper = () => {
   const stepOne = pathname === '/step/1';
   const stepTwo = pathname === '/step/2';
   const stepThree = pathname === '/step/3';
-  console.log(pathname)
   return (
     <ul className={styles.stepper}>
       <li className={clsx(styles.step, {
