@@ -51,6 +51,10 @@ export const StepTwoForm = () => {
     router.push('/step/3');
   }
 
+  const goBack = () => {
+    router.push('/step/1');
+  }
+
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -90,7 +94,7 @@ export const StepTwoForm = () => {
       </div>
 
       <div className={styles.wrapper}>
-        <UIButton text={'Назад'} type={'button'} onClick={() => console} />
+        <UIButton text={'Назад'} type={'button'} onClick={goBack} />
 
         <UIButton text={'Далее'} type={'submit'} />
       </div>
