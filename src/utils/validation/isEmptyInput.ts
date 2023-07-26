@@ -13,3 +13,12 @@ export const isFoundEmptyValue = (values: string[]) => {
   }
   return false;
 }
+
+export const isFoundEmptyValueInFormData = <T extends object>(FormData: T) => {
+  for (const value of Object.values(FormData)) {
+    if (isEmptyInput(value)) {
+      return true;
+    }
+  }
+  return false;
+}

@@ -7,7 +7,7 @@ interface IUserViewFormPayload {
   value: string;
 }
 
-interface IUserViewForm {
+export interface IUserViewForm {
   [k: string]: string;
   fullName: string;
   tel: string;

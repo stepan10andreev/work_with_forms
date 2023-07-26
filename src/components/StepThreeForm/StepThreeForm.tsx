@@ -14,6 +14,10 @@ import { FormDataContentModal } from '../FormDataContentModal/FormDataContentMod
 import { IUserViewFormData } from '../UserViewForm/UserViewForm'
 import { IStepOneFormData } from '../StepOneForm/StepOneForm'
 import { IStepTwoFormData } from '../StepTwoForm/StepTwoForm'
+import { isFoundEmptyValueInFormData } from '@/utils/validation/isEmptyInput'
+import { IUserViewForm } from '@/store/userViewFormData'
+import { IStepOneForm } from '@/store/stepOneFormData'
+import { ErrorText } from '../ui-components/ErrorText/ErrorText'
 
 
 export interface IStepThreeFormData {
@@ -36,6 +40,9 @@ export const StepThreeForm = () => {
   const stepOneForm = useAppSelector((state) => state.stepOneForm);
   const stepTwoForm = useAppSelector((state) => state.stepTwoForm);
   const stepThreeForm = useAppSelector((state) => state.stepThreeForm);
+
+  const previousFormIsCompleted = !isFoundEmptyValueInFormData<IUserViewForm>(userViewForm) &&
+    !isFoundEmptyValueInFormData<IStepOneForm>(stepOneForm)
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
@@ -61,37 +68,44 @@ export const StepThreeForm = () => {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <TextArea
-        heading={'About'}
-        placeholderText={'Введите свои пожелания'}
-        rows={8}
-        name={'wishes'}
-        externalOnChange={handleChange}
-        lettersCount={lettersCount}
-        textLength={200}
-        maxLength={200}
-      />
+    <>
+      {previousFormIsCompleted ? (
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <TextArea
+            heading={'About'}
+            placeholderText={'Введите свои пожелания'}
+            rows={8}
+            name={'wishes'}
+            externalOnChange={handleChange}
+            lettersCount={lettersCount}
+            textLength={200}
+            maxLength={200}
+          />
 
-      <div className={styles.wrapper}>
-        <UIButton text={'Назад'} type={'button'} onClick={handleClickBack} />
+          <div className={styles.wrapper}>
+            <UIButton text={'Назад'} type={'button'} onClick={handleClickBack} />
 
-        <UIButton text={'Отправить'} type={'submit'} />
-      </div>
-
-      {isFulfilled && (
-        <Modal onClose={() => setFulfilled(false)}>
-          <div className={styles.succes}>
-            <FormDataContentModal
-              userFormData={userViewFormData as IUserViewFormData}
-              formData1={stepOneFormData as IStepOneFormData}
-              formData2={stepTwoFormData as IStepTwoFormData}
-              formData3={stepThreeFormData as IStepThreeFormData}
-            />
+            <UIButton text={'Отправить'} type={'submit'} />
           </div>
-        </Modal>
-      )}
 
-    </form>
+          {isFulfilled && (
+            <Modal onClose={() => setFulfilled(false)}>
+              <div className={styles.succes}>
+                <FormDataContentModal
+                  userFormData={userViewFormData as IUserViewFormData}
+                  formData1={stepOneFormData as IStepOneFormData}
+                  formData2={stepTwoFormData as IStepTwoFormData}
+                  formData3={stepThreeFormData as IStepThreeFormData}
+                />
+              </div>
+            </Modal>
+          )}
+
+        </form>
+      ) : (
+        <ErrorText errorText='Этот шаг не доступен. Вы не заполнили предыдущую форму' />
+      )}
+    </>
+
   )
 }

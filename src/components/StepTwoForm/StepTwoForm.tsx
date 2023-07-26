@@ -13,6 +13,9 @@ import { RadioButton } from '../ui-components/RadioButton/RadioButton'
 import { validateMaxLength } from '@/utils/validation/validateMaxLength'
 import { useRouter } from 'next/navigation'
 import { ErrorText } from '../ui-components/ErrorText/ErrorText'
+import { isFoundEmptyValueInFormData } from '@/utils/validation/isEmptyInput'
+import { IUserViewForm } from '@/store/userViewFormData'
+import { IStepOneForm } from '@/store/stepOneFormData'
 
 export interface IStepTwoFormData {
   advantages: string[];
@@ -25,6 +28,11 @@ export const StepTwoForm = () => {
 
   const advantageInputs = useAppSelector((state) => state.stepTwoForm.advantageInputElements);
   const stepTwoFormData = useAppSelector((state) => state.stepTwoForm);
+
+  const userViewFormData = useAppSelector((state) => state.userViewForm);
+  const userStepOneFormData = useAppSelector((state) => state.stepOneForm);
+  const previousFormIsCompleted = !isFoundEmptyValueInFormData<IUserViewForm>(userViewFormData) &&
+    !isFoundEmptyValueInFormData<IStepOneForm>(userStepOneFormData)
 
   const router = useRouter();
 
@@ -63,48 +71,55 @@ export const StepTwoForm = () => {
 
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <>
+      {previousFormIsCompleted ? (
+        <form className={styles.form} onSubmit={handleSubmit}>
 
-      <h2 className={styles.title}>Advantages</h2>
+          <h2 className={styles.title}>Advantages</h2>
 
-      {advantageInputs.map((advantage, index)=> (
-        <AdvantageInput key={advantage.id} id={advantage.id} index={index}/>
-      ))}
+          {advantageInputs.map((advantage, index) => (
+            <AdvantageInput key={advantage.id} id={advantage.id} index={index} />
+          ))}
 
-      {!isAdvantageMaxLength && (<ErrorText errorText={`Превышена допустимая длина полей ввода`}/>)}
+          {!isAdvantageMaxLength && (<ErrorText errorText={`Превышена допустимая длина полей ввода`} />)}
 
-      <UIButton
-        type={'button'}
-        name={'addButton'}
-        icon={<AddButtonIcon />}
-        onClick={addInputOnCLick}
-      />
+          <UIButton
+            type={'button'}
+            name={'addButton'}
+            icon={<AddButtonIcon />}
+            onClick={addInputOnCLick}
+          />
 
-      <h2 className={styles.title}>Checkbox group</h2>
-
-
-      <div className={styles.checkboxWrapper}>
-
-        <Checkbox placeholderText={'Вариант 1'} name={'checkboxOptions'} value={'Вариант 1'}/>
-        <Checkbox placeholderText={'Вариант 2'} name={'checkboxOptions'} value={'Вариант 2'} />
-        <Checkbox placeholderText={'Вариант 3'} name={'checkboxOptions'} value={'Вариант 3'} />
-      </div>
+          <h2 className={styles.title}>Checkbox group</h2>
 
 
-      <h2 className={styles.title}>Radio group</h2>
+          <div className={styles.checkboxWrapper}>
 
-      <div className={styles.radioWrapper}>
-        <RadioButton placeholderText={'Вариант 1'} name={'radioOption'} value={'Вариант 1'}/>
-        <RadioButton placeholderText={'Вариант 2'} name={'radioOption'} value={'Вариант 2'} />
-        <RadioButton placeholderText={'Вариант 3'} name={'radioOption'} value={'Вариант 3'}/>
-      </div>
+            <Checkbox placeholderText={'Вариант 1'} name={'checkboxOptions'} value={'Вариант 1'} />
+            <Checkbox placeholderText={'Вариант 2'} name={'checkboxOptions'} value={'Вариант 2'} />
+            <Checkbox placeholderText={'Вариант 3'} name={'checkboxOptions'} value={'Вариант 3'} />
+          </div>
 
-      <div className={styles.wrapper}>
-        <UIButton text={'Назад'} type={'button'} onClick={goBack} />
 
-        <UIButton text={'Далее'} type={'submit'} />
-      </div>
+          <h2 className={styles.title}>Radio group</h2>
 
-    </form>
+          <div className={styles.radioWrapper}>
+            <RadioButton placeholderText={'Вариант 1'} name={'radioOption'} value={'Вариант 1'} />
+            <RadioButton placeholderText={'Вариант 2'} name={'radioOption'} value={'Вариант 2'} />
+            <RadioButton placeholderText={'Вариант 3'} name={'radioOption'} value={'Вариант 3'} />
+          </div>
+
+          <div className={styles.wrapper}>
+            <UIButton text={'Назад'} type={'button'} onClick={goBack} />
+
+            <UIButton text={'Далее'} type={'submit'} />
+          </div>
+
+        </form>
+      ) : (
+        <ErrorText errorText='Этот шаг не доступен. Вы не заполнили предыдущую форму'/>
+      )}
+    </>
+
   )
 }
