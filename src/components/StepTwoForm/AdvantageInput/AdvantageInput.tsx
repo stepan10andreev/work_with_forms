@@ -22,6 +22,8 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index }) => {
   const indexOfValue = useAppSelector((state) => state.stepTwoForm.advantageInputElements.findIndex(input => input.id === id));
   const currentValue = useAppSelector((state) => state.stepTwoForm.advantages[indexOfValue]);
 
+  const [value, setValue] = useState(currentValue)
+
   const dispatch = useAppDispatch();
 
   const deleteInputOnCLick = () => {
@@ -33,6 +35,7 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index }) => {
 
     currentTarget.value = validateOnlyCyrillicText(currentTarget.value)
 
+    setValue(currentTarget.value)
     // // вариант с передачей индекса
     // dispatch(updateStepTwoFormData(currentTarget.name, currentTarget.value, undefined, undefined, index))
 
@@ -50,7 +53,7 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index }) => {
           type="text"
           placeholder='Введите преимущества'
           name='advantages'
-          value={currentValue}
+          value={value}
           onChange={handleChangeAdvantages}
           className={styles.input}
         />

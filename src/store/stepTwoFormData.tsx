@@ -27,7 +27,7 @@ const initialState: IStepTwoForm = {
   advantages: [],
   checkboxOptions: [],
   radioOption: '',
-  advantageInputElements: [{id: nanoid()}],
+  advantageInputElements: [{ id: nanoid() }],
 }
 
 const stepTwoFormSlice = createSlice({
@@ -35,7 +35,7 @@ const stepTwoFormSlice = createSlice({
   initialState,
   reducers: {
     updateStepTwoFormData: {
-      reducer (state, action: PayloadAction<IStepTwoFormPayload>) {
+      reducer(state, action: PayloadAction<IStepTwoFormPayload>) {
         if ((action.payload.prop === 'checkboxOptions') && (action.payload.method != 'DELETE')) {
           state.checkboxOptions = [...state.checkboxOptions, action.payload.value]
         } else if ((action.payload.prop === 'checkboxOptions') && (action.payload.method === 'DELETE')) {
@@ -59,14 +59,14 @@ const stepTwoFormSlice = createSlice({
         if (action.payload.prop === 'advantages' && (action.payload.method != 'DELETE')) {
           const currentValue = action.payload.value;
           const currentChangedInput = state.advantageInputElements.find(input => input.id === action.payload.id)
-          if(!currentChangedInput) return;
+          if (!currentChangedInput) return;
           const index = state.advantageInputElements.indexOf(currentChangedInput);
           state.advantages[index] = currentValue
         }
       },
-      prepare (prop: string, value: string, method?: EMethods, id?: string, index?: number) {
+      prepare(prop: string, value: string, method?: EMethods, id?: string, index?: number) {
         return {
-          payload:{
+          payload: {
             prop,
             value,
             method,
@@ -84,25 +84,28 @@ const stepTwoFormSlice = createSlice({
       // можно при добавлении инпута сразу добавлять пустое значение в массив advantages (необязательно)
     },
     deleteAdvantageInput: {
-      reducer (state, action: PayloadAction<string>) {
+      reducer(state, action: PayloadAction<string>) {
         // удаляем и значение инпута из state.advantages при удалении самого инпута
         const deletedInput = state.advantageInputElements.find(advantage => advantage.id === action.payload);
-        if(!deletedInput) return;
+        if (!deletedInput) return;
         const index = state.advantageInputElements.indexOf(deletedInput);
         state.advantages.splice(index, 1);
 
         // удаляем сам инпут
-        state.advantageInputElements =  state.advantageInputElements.filter((advantage) => advantage.id != action.payload)
+        state.advantageInputElements = state.advantageInputElements.filter((advantage) => advantage.id != action.payload)
+      },
+      prepare(id: string) {
+        return {
+          payload: id
+        }
+      },
     },
-    prepare (id: string) {
-      return {
-        payload: id
-      }
-    },
+    resetStepTwoFormData: (state) => {
+      return state = { ...initialState };
     }
   }
 })
 
-export const { updateStepTwoFormData, addAdvantageInput, deleteAdvantageInput } = stepTwoFormSlice.actions;
+export const { updateStepTwoFormData, addAdvantageInput, deleteAdvantageInput, resetStepTwoFormData } = stepTwoFormSlice.actions;
 
 export default stepTwoFormSlice.reducer;

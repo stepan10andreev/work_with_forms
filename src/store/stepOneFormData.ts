@@ -25,21 +25,24 @@ const stepOneFormSlice = createSlice({
   initialState,
   reducers: {
     updateStepOneFormData: {
-      reducer (state, action: PayloadAction<IStepOneFormPayload>) {
+      reducer(state, action: PayloadAction<IStepOneFormPayload>) {
         state[action.payload.prop] = action.payload.value;
       },
-      prepare (prop: string, value: string) {
+      prepare(prop: string, value: string) {
         return {
-          payload:{
+          payload: {
             prop,
             value,
           }
         }
       },
     },
+    resetStepOneFormData: (state) => {
+      return state = { ...initialState };
+    }
   }
 })
 
-export const { updateStepOneFormData } = stepOneFormSlice.actions;
+export const { updateStepOneFormData, resetStepOneFormData } = stepOneFormSlice.actions;
 
 export default stepOneFormSlice.reducer;

@@ -27,7 +27,7 @@ const userViewFormSlice = createSlice({
   initialState,
   reducers: {
     updateUserViewFormData: {
-      reducer (state, action: PayloadAction<IUserViewFormPayload>) {
+      reducer(state, action: PayloadAction<IUserViewFormPayload>) {
         state[action.payload.prop] = action.payload.value;
         if (state.fullName.length > 0) {
           state.shortName = getShortName(state.fullName)
@@ -35,9 +35,9 @@ const userViewFormSlice = createSlice({
           state.shortName = 'XX'
         }
       },
-      prepare (prop: string, value: string) {
+      prepare(prop: string, value: string) {
         return {
-          payload:{
+          payload: {
             prop,
             value,
           }
@@ -46,10 +46,13 @@ const userViewFormSlice = createSlice({
     },
     capitalizeLettersOfFullName: (state) => {
       state.fullName = getFullNameWithCapitalLetters(state.fullName)
+    },
+    resetUserViewFormData: (state) => {
+      return state = { ...initialState };
     }
   }
 })
 
-export const { updateUserViewFormData, capitalizeLettersOfFullName } = userViewFormSlice.actions;
+export const { updateUserViewFormData, capitalizeLettersOfFullName, resetUserViewFormData } = userViewFormSlice.actions;
 
 export default userViewFormSlice.reducer;

@@ -6,16 +6,24 @@ import { IStepTwoFormData } from '../StepTwoForm/StepTwoForm';
 import { IStepThreeFormData } from '../StepThreeForm/StepThreeForm';
 import { UIText } from '../ui-components/UIText/UIText';
 import { WellDoneIcon } from '../ui-components/Icons/WellDoneIcon';
+import { UIButton } from '../ui-components/UIButton/UIButton';
+import { useRouter } from 'next/navigation';
 
 interface IFormDataContentModalProps {
   userFormData: IUserViewFormData;
   formData1: IStepOneFormData;
   formData2: IStepTwoFormData;
   formData3: IStepThreeFormData;
+  btnOnCLick: () => void;
 }
 
-export const FormDataContentModal: FC<IFormDataContentModalProps> = ({ userFormData, formData1, formData2, formData3 }) => {
+export const FormDataContentModal: FC<IFormDataContentModalProps> = ({ userFormData, formData1, formData2, formData3, btnOnCLick }) => {
 
+  const router = useRouter();
+
+  // const goHome =() => {
+  //   router.push('/');
+  // }
 
   return (
     <div className={styles.content}>
@@ -70,6 +78,7 @@ export const FormDataContentModal: FC<IFormDataContentModalProps> = ({ userFormD
         </div>
       </div>
 
+      <UIButton text='На главную' onClick={btnOnCLick}/>
     </div>
   )
 }

@@ -6,16 +6,17 @@ import { getTextWithoutSpaces } from '@/utils/getTextWithoutSpaces'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
-import { updateStepThreeFormData } from '@/store/stepThreeForm'
+import { resetStepThreeFormData, updateStepThreeFormData } from '@/store/stepThreeForm'
 import { Modal } from '../ui-components/Modal/Modal'
 import { FormDataContentModal } from '../FormDataContentModal/FormDataContentModal'
 import { IUserViewFormData } from '../UserViewForm/UserViewForm'
 import { IStepOneFormData } from '../StepOneForm/StepOneForm'
 import { IStepTwoFormData } from '../StepTwoForm/StepTwoForm'
 import { isFoundEmptyValueInFormData } from '@/utils/validation/isEmptyInput'
-import { IUserViewForm } from '@/store/userViewFormData'
-import { IStepOneForm } from '@/store/stepOneFormData'
+import { IUserViewForm, resetUserViewFormData } from '@/store/userViewFormData'
+import { IStepOneForm, resetStepOneFormData } from '@/store/stepOneFormData'
 import { ErrorText } from '../ui-components/ErrorText/ErrorText'
+import { resetStepTwoFormData } from '@/store/stepTwoFormData'
 
 export interface IStepThreeFormData {
   wishes: string;
@@ -52,7 +53,19 @@ export const StepThreeForm = () => {
     setstepTwoFormData(stepTwoForm);
     setstepThreeFormData(stepThreeForm);
 
+    // открываем модалку
     setFulfilled(true);
+
+  }
+
+  const resetAll = () => {
+    // очищаем store и значения
+    dispatch(resetUserViewFormData())
+    dispatch(resetStepOneFormData())
+    dispatch(resetStepTwoFormData())
+    dispatch(resetStepThreeFormData())
+    // возваращаемся на глваную
+    router.push('/')
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -88,13 +101,14 @@ export const StepThreeForm = () => {
           </div>
 
           {isFulfilled && (
-            <Modal onClose={() => setFulfilled(false)}>
+            <Modal onClose={() => setFulfilled(false)} goToPage={resetAll}>
               <div className={styles.succes}>
                 <FormDataContentModal
                   userFormData={userViewFormData as IUserViewFormData}
                   formData1={stepOneFormData as IStepOneFormData}
                   formData2={stepTwoFormData as IStepTwoFormData}
                   formData3={stepThreeFormData as IStepThreeFormData}
+                  btnOnCLick={resetAll}
                 />
               </div>
             </Modal>

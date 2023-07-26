@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IStepOneFormPayload } from "./stepOneFormData";
 
-export interface IStepThreeFormPayload extends IStepOneFormPayload {}
+export interface IStepThreeFormPayload extends IStepOneFormPayload { }
 
 interface IStepThreeForm {
   [k: string]: string;
@@ -17,21 +17,24 @@ const stepThreeFormSlice = createSlice({
   initialState,
   reducers: {
     updateStepThreeFormData: {
-      reducer (state, action: PayloadAction<IStepThreeFormPayload>) {
+      reducer(state, action: PayloadAction<IStepThreeFormPayload>) {
         state[action.payload.prop] = action.payload.value;
       },
-      prepare (prop: string, value: string) {
+      prepare(prop: string, value: string) {
         return {
-          payload:{
+          payload: {
             prop,
             value,
           }
         }
       },
     },
+    resetStepThreeFormData: (state) => {
+      return state = { ...initialState };
+    }
   }
 })
 
-export const { updateStepThreeFormData } = stepThreeFormSlice.actions;
+export const { updateStepThreeFormData, resetStepThreeFormData } = stepThreeFormSlice.actions;
 
 export default stepThreeFormSlice.reducer;
