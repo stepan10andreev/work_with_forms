@@ -8,9 +8,10 @@ interface ITextAreaProps extends Pick<IUIInputProps, 'name' | 'placeholderText' 
   lettersCount?: number;
   maxLength?: number;
   textLength?: number;
+  value: string;
 }
 
-export const TextArea: FC<ITextAreaProps> = ({ name, placeholderText, As, heading, externalOnChange, cols, rows, lettersCount, maxLength, textLength }) => {
+export const TextArea: FC<ITextAreaProps> = ({ name, placeholderText, As, heading, externalOnChange, cols, rows, lettersCount, maxLength, textLength, value }) => {
   return (
     <label className={styles.label}>
       {As != null && <As className={styles.heading}>{heading}</As>}
@@ -23,6 +24,7 @@ export const TextArea: FC<ITextAreaProps> = ({ name, placeholderText, As, headin
         onChange={externalOnChange}
         className={styles.input}
         maxLength={maxLength}
+        value={value}
       >
       </textarea>
 

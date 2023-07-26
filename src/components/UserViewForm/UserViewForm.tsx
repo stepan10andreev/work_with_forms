@@ -29,15 +29,18 @@ export const UserViewForm = () => {
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
-    // // 2 вариант с типизацией => тогда не нвдо указывать 'as string' дальше
+    // // 2 вариант с типизацией => тогда не надо указывать 'as string' дальше
     // const formData = new FormData(form) as unknown as Iterable<[IFormJson, FormDataEntryValue]>;
     // const formJson: IFormJson = Object.fromEntries(formData);
 
-    if (validateMaxLength(formJson.fullName as string, 30) && isCyrillic(formJson.fullName as string) && isValidEmail(formJson.email as string) && validateMinPhoneLength(getOnlyPhoneNumber(formJson.tel as string), 10)) {
-      console.log(formJson)
+    if (validateMaxLength(formJson.fullName as string, 30) &&
+      isCyrillic(formJson.fullName as string) &&
+      isValidEmail(formJson.email as string) &&
+      validateMinPhoneLength(getOnlyPhoneNumber(formJson.tel as string), 10)) {
+      // console.log(formJson)
       router.push('/step/1')
     } else {
-      console.log('Проверьте поля на корректность введенных данных')
+      // console.log('Проверьте поля на корректность введенных данных')
       // здесь если нужно - логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута)
     }
   };
@@ -62,7 +65,7 @@ export const UserViewForm = () => {
         formName={'userViewForm'}
       />
 
-      <UIButton text={'Начать'} type={'submit'}/>
+      <UIButton text={'Начать'} type={'submit'} />
     </form>
   )
 }

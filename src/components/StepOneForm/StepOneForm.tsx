@@ -6,10 +6,10 @@ import { CustomSelect } from '../ui-components/CustomSelect/CustomSelect'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import { useRouter } from 'next/navigation'
 import { validateMaxLength } from '@/utils/validation/validateMaxLength'
-import { isEmptyInput, isFoundEmptyValue, isFoundEmptyValueInFormData } from '@/utils/validation/isEmptyInput'
+import { isFoundEmptyValue, isFoundEmptyValueInFormData } from '@/utils/validation/isEmptyInput'
 import { ErrorText } from '../ui-components/ErrorText/ErrorText'
 import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
-import { IUserViewForm, updateUserViewFormData } from '@/store/userViewFormData'
+import { IUserViewForm } from '@/store/userViewFormData'
 import { updateStepOneFormData } from '@/store/stepOneFormData'
 import { validateNicknameInput } from '@/utils/validation/validateNicknameInput'
 import { validateOnlyCyrillicText } from '@/utils/validation/validateTextInput'
@@ -21,9 +21,9 @@ export interface IStepOneFormData {
   sex: string;
 }
 
-const NICKNAME_MAX_LENGTH = 10
-const NAME_MAX_LENGTH = 20
-const SURNAME_MAX_LENGTH = 20
+const NICKNAME_MAX_LENGTH = 10;
+const NAME_MAX_LENGTH = 20;
+const SURNAME_MAX_LENGTH = 20;
 
 export const StepOneForm = () => {
   const [isEmptyValue, setIsEmptyValue] = useState(false);
@@ -61,11 +61,11 @@ export const StepOneForm = () => {
       setIsNameMaxLength(true);
       setIsSurnameMaxLength(true);
 
-      console.log(formJson);
+      // console.log(formJson);
 
       router.push('/step/2');
     } else {
-      // здесь если нужно - логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута)
+      //  логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута как в UserViewForm)
       if (isFoundEmptyValue(Object.values(formJson))) {
         setIsEmptyValue(true)
       }
@@ -104,61 +104,60 @@ export const StepOneForm = () => {
 
     if (currentTarget.value.length > 0) setIsEmptyValue(false);
 
-    // условие если все инпуты валидны по всем условиям только тогда диспатч!!!
     dispatch(updateStepOneFormData(currentTarget.name, currentTarget.value));
   }
 
   return (
     <>
       {previousFormIsCompleted ? (
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <UIInput
-          type={'text'}
-          heading={'Nickname'}
-          placeholderText={'Введите Nickname'}
-          name={'nickname'}
-          formName={'stepOneForm'}
-          externalOnChange={handleChange}
-        />
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <UIInput
+            type={'text'}
+            heading={'Nickname'}
+            placeholderText={'Введите Nickname'}
+            name={'nickname'}
+            formName={'stepOneForm'}
+            externalOnChange={handleChange}
+          />
 
-        <UIInput
-          type={'text'}
-          heading={'Name'}
-          placeholderText={'Введите Name'}
-          name={'name'}
-          formName={'stepOneForm'}
-          externalOnChange={handleChange}
-        />
+          <UIInput
+            type={'text'}
+            heading={'Name'}
+            placeholderText={'Введите Name'}
+            name={'name'}
+            formName={'stepOneForm'}
+            externalOnChange={handleChange}
+          />
 
-        <UIInput
-          type={'text'}
-          heading={'Surname'}
-          placeholderText={'Введите Surname'}
-          name={'surname'}
-          formName={'stepOneForm'}
-          externalOnChange={handleChange}
-        />
+          <UIInput
+            type={'text'}
+            heading={'Surname'}
+            placeholderText={'Введите Surname'}
+            name={'surname'}
+            formName={'stepOneForm'}
+            externalOnChange={handleChange}
+          />
 
-        <CustomSelect
-          heading={'Sex'}
-          name={'sex'}
-          formName={'stepOneForm'}
-        />
+          <CustomSelect
+            heading={'Sex'}
+            name={'sex'}
+            formName={'stepOneForm'}
+          />
 
-        {isEmptyValue && (<ErrorText errorText={'Заполните все поля ввода'} />)}
-        {!isNicknameMaxLength && (<ErrorText errorText={`Максимальная допустимая длина поля NickName - ${NICKNAME_MAX_LENGTH} символов`} />)}
-        {!isNameMaxLength && (<ErrorText errorText={`Максимальная допустимая длина поля Name  - ${NICKNAME_MAX_LENGTH} символов`} />)}
-        {!isSurnameMaxLength && (<ErrorText errorText={`Максимальная допустимая длина поля Surname - ${NICKNAME_MAX_LENGTH} символов`} />)}
+          {isEmptyValue && (<ErrorText errorText={'Заполните все поля ввода'} />)}
+          {!isNicknameMaxLength && (<ErrorText errorText={`Максимальная допустимая длина поля NickName - ${NICKNAME_MAX_LENGTH} символов`} />)}
+          {!isNameMaxLength && (<ErrorText errorText={`Максимальная допустимая длина поля Name  - ${NAME_MAX_LENGTH} символов`} />)}
+          {!isSurnameMaxLength && (<ErrorText errorText={`Максимальная допустимая длина поля Surname - ${SURNAME_MAX_LENGTH} символов`} />)}
 
-        <div className={styles.wrapper}>
-          <UIButton text={'Назад'} type={'button'} onClick={handleClickBack} />
+          <div className={styles.wrapper}>
+            <UIButton text={'Назад'} type={'button'} onClick={handleClickBack} />
 
-          <UIButton text={'Далее'} type={'submit'} />
-        </div>
+            <UIButton text={'Далее'} type={'submit'} />
+          </div>
 
-      </form>
+        </form>
       ) : (
-        <ErrorText errorText='Этот шаг не доступен. Вы не заполнили предыдущую форму'/>
+        <ErrorText errorText='Этот шаг не доступен. Вы не заполнили предыдущую форму' />
       )}
     </>
   )

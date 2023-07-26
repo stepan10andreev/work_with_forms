@@ -1,13 +1,11 @@
 'use client'
-import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
-import { UIInput } from '../ui-components/UIInput/UIInput'
+import React, { FormEventHandler, useState } from 'react'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import { AddButtonIcon } from '../ui-components/Icons/AddButtonIcon'
 import styles from './StepTwoForm.module.scss'
-import { DeleteButtonIcon } from '../ui-components/Icons/DeleteButtonIcon'
 import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
 import { ADVANTAGE_INPUT_MAX_LENGTH, AdvantageInput } from './AdvantageInput/AdvantageInput'
-import { addAdvantageInput, updateStepTwoFormData } from '@/store/stepTwoFormData'
+import { addAdvantageInput } from '@/store/stepTwoFormData'
 import { Checkbox } from '../ui-components/Checkbox/Checkbox'
 import { RadioButton } from '../ui-components/RadioButton/RadioButton'
 import { validateMaxLength } from '@/utils/validation/validateMaxLength'
@@ -45,13 +43,11 @@ export const StepTwoForm = () => {
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
-    const form = event.target as HTMLFormElement;
-
+    // const form = event.target as HTMLFormElement;
     // const formData = new FormData(form);
     // const formJson = Object.fromEntries(formData.entries());
-    // console.log(formJson)
 
-    // создаем обьект data путем удаления массива элементов инпутов из stepTwoFormData
+    // создаем обьект data путем удаления массива элементов инпутов из stepTwoFormData (store)
     const { advantageInputElements, ...data } = stepTwoFormData;
     for (const advantage of data.advantages) {
       if (!validateMaxLength(advantage, ADVANTAGE_INPUT_MAX_LENGTH)) {
@@ -61,7 +57,7 @@ export const StepTwoForm = () => {
       }
     }
     setIsAdvantageMaxLength(true)
-    console.log(data)
+    // console.log(data)
     router.push('/step/3');
   }
 
@@ -117,7 +113,7 @@ export const StepTwoForm = () => {
 
         </form>
       ) : (
-        <ErrorText errorText='Этот шаг не доступен. Вы не заполнили предыдущую форму'/>
+        <ErrorText errorText='Этот шаг не доступен. Вы не заполнили предыдущую форму' />
       )}
     </>
 

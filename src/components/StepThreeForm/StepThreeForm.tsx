@@ -1,14 +1,12 @@
 'use client'
 import React, { ChangeEventHandler, FormEventHandler, useState } from 'react'
 import styles from './StepThreeForm.module.scss'
-import { UIInput } from '../ui-components/UIInput/UIInput'
 import { TextArea } from '../ui-components/TextArea/TextArea'
 import { getTextWithoutSpaces } from '@/utils/getTextWithoutSpaces'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import { useRouter } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
 import { updateStepThreeFormData } from '@/store/stepThreeForm'
-import { getFormData } from '@/utils/formData/getFormData'
 import { Modal } from '../ui-components/Modal/Modal'
 import { FormDataContentModal } from '../FormDataContentModal/FormDataContentModal'
 import { IUserViewFormData } from '../UserViewForm/UserViewForm'
@@ -18,7 +16,6 @@ import { isFoundEmptyValueInFormData } from '@/utils/validation/isEmptyInput'
 import { IUserViewForm } from '@/store/userViewFormData'
 import { IStepOneForm } from '@/store/stepOneFormData'
 import { ErrorText } from '../ui-components/ErrorText/ErrorText'
-
 
 export interface IStepThreeFormData {
   wishes: string;
@@ -49,6 +46,7 @@ export const StepThreeForm = () => {
 
     // const form = event.target as HTMLFormElement;
     // const formData = getFormData<IStepThreeFormData>(form)
+
     setUserViewFormData(userViewForm);
     setstepOneFormData(stepOneForm);
     setstepTwoFormData(stepTwoForm);
@@ -60,7 +58,7 @@ export const StepThreeForm = () => {
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
     setLettersCount(getTextWithoutSpaces(currentTarget.value).length);
-    dispatch(updateStepThreeFormData('about', currentTarget.value));
+    dispatch(updateStepThreeFormData('wishes', currentTarget.value));
   }
 
   const handleClickBack = () => {
@@ -80,6 +78,7 @@ export const StepThreeForm = () => {
             lettersCount={lettersCount}
             textLength={200}
             maxLength={200}
+            value={stepThreeForm.wishes}
           />
 
           <div className={styles.wrapper}>

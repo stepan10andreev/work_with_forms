@@ -5,7 +5,7 @@ export interface IStepOneFormPayload {
   value: string;
 }
 
-interface IStepOneForm {
+export interface IStepOneForm {
   [k: string]: string;
   nickname: string;
   name: string;

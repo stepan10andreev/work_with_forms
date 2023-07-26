@@ -1,6 +1,6 @@
 import { DeleteButtonIcon } from '@/components/ui-components/Icons/DeleteButtonIcon'
 import { UIButton } from '@/components/ui-components/UIButton/UIButton'
-import { IUIInputProps, UIInput } from '@/components/ui-components/UIInput/UIInput'
+import { IUIInputProps } from '@/components/ui-components/UIInput/UIInput'
 import React, { ChangeEventHandler, FC, useState } from 'react'
 import styles from './AdvantageInput.module.scss'
 import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp'
@@ -14,9 +14,9 @@ interface IAdvantageInputProps extends Pick<IUIInputProps, 'externalOnChange'> {
   index: number;
 }
 
-export const ADVANTAGE_INPUT_MAX_LENGTH = 30
+export const ADVANTAGE_INPUT_MAX_LENGTH = 30;
 
-export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index}) => {
+export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index }) => {
   const [isMaxLength, setIsMaxLength] = useState(true);
 
   const indexOfValue = useAppSelector((state) => state.stepTwoForm.advantageInputElements.findIndex(input => input.id === id));
@@ -28,7 +28,7 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index}) => {
     dispatch(deleteAdvantageInput(id))
   }
 
-  const handleChangeAdvantages: ChangeEventHandler<HTMLInputElement>  = (event) => {
+  const handleChangeAdvantages: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
 
     currentTarget.value = validateOnlyCyrillicText(currentTarget.value)
@@ -45,15 +45,6 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index}) => {
 
   return (
     <div className={styles.advWrapper}>
-      {/* <UIInput
-        As={null}
-        type={'text'}
-        placeholderText={'Введите преимущества'}
-        name={'advantages'}
-        formName={'stepOneForm'}
-        externalOnChange={handleChangeAdvantages}
-        externalValue={currentValue}
-      /> */}
       <label>
         <input
           type="text"
@@ -71,7 +62,7 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index}) => {
         onClick={deleteInputOnCLick}
       />
 
-      {!isMaxLength && (<ErrorText errorText={`Максимальная допустимая длина - ${ADVANTAGE_INPUT_MAX_LENGTH} символов`}/>)}
+      {!isMaxLength && (<ErrorText errorText={`Максимальная допустимая длина - ${ADVANTAGE_INPUT_MAX_LENGTH} символов`} />)}
     </div>
   )
 }

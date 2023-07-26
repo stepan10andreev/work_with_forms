@@ -1,17 +1,14 @@
 'use client'
-import React, { ChangeEventHandler, FC, MouseEventHandler, useEffect, useState } from 'react'
+import React, { ChangeEventHandler, FC, useState } from 'react'
 import styles from './Input.module.scss'
 import { useAppDispatch, useAppSelector } from '@/components/Hooks/useApp';
 import { capitalizeLettersOfFullName, updateUserViewFormData } from '@/store/userViewFormData';
-import { validateOnlyCyrillicText, validateTextInput } from '@/utils/validation/validateTextInput';
+import { validateTextInput } from '@/utils/validation/validateTextInput';
 import { isCyrillic } from '@/utils/validation/isCyrillic';
 import { ErrorText } from '../ErrorText/ErrorText';
 import { isValidEmail } from '@/utils/validation/isValidEmail';
 import { getCorrectInputValue } from '@/utils/getCorrectInputValue';
-import { getFullNameWithCapitalLetters } from '@/utils/getFullNameWithCapitalLetters';
 import { validateMaxLength } from '@/utils/validation/validateMaxLength';
-import { validateMinPhoneLength } from '@/utils/validation/validateMinPhoneLength';
-import { validateNicknameInput } from '@/utils/validation/validateNicknameInput';
 
 export interface IUIInputProps {
   type: string;
@@ -23,19 +20,19 @@ export interface IUIInputProps {
   formName: string;
 }
 
-const maxLength = 30
+const maxLength = 30;
 
-
-export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As ='h2', formName, externalOnChange}) => {
+export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, name, As = 'h2', formName, externalOnChange }) => {
   const [isCyrillicText, setIsCyrillicText] = useState(true);
   const [isCorrectEmail, setIsCorrectEmail] = useState(true);
   const [isMaxLength, setIsMaxLength] = useState(true);
 
-  // какое название формы передано - то знаечние и находится
+  // какое название формы передано - то значение и находится
   const currentValue = useAppSelector((state) => state[formName][name]);
 
   const dispatch = useAppDispatch();
 
+  // обработчики событий только для UыerViewForm, остальные формы передают свой обработчик
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const currentTarget = event.target;
 
@@ -43,7 +40,7 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
       case 'fullName':
         currentTarget.value = validateTextInput(currentTarget.value);
 
-        if (!isCyrillic(currentTarget.value)) {
+        if (!isCyrillic(currentTarget.value) && (currentTarget.value.length > 0)) {
           setIsCyrillicText(false)
         } else {
           setIsCyrillicText(true)
@@ -79,11 +76,11 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
           dispatch(capitalizeLettersOfFullName());
         }
 
-        isCyrillic(currentTarget.value) ? setIsCyrillicText(true) : setIsCyrillicText(false);
+        isCyrillic(currentTarget.value) && setIsCyrillicText(true);
 
         break;
       case 'email':
-        if (!isValidEmail(currentTarget.value)) {
+        if (!isValidEmail(currentTarget.value) && (currentTarget.value.length > 0)) {
           setIsCorrectEmail(false)
         } else {
           setIsCorrectEmail(true)
@@ -105,9 +102,10 @@ export const UIInput: FC<IUIInputProps> = ({ type, heading, placeholderText, nam
         onChange={externalOnChange ? externalOnChange : onChange}
         onBlur={handleBlur}
       />
-      {!isCyrillicText && (<ErrorText errorText={'Введите только буквы кириллицы'}/>)}
-      {!isCorrectEmail && (<ErrorText errorText={'Неправильный формат email'}/>)}
-      {!isMaxLength && (<ErrorText errorText={`Максимальная допустимая длина - ${maxLength} символов`}/>)}
+
+      {!isCyrillicText && (<ErrorText errorText={'Введите только буквы кириллицы'} />)}
+      {!isCorrectEmail && (<ErrorText errorText={'Неправильный формат email'} />)}
+      {!isMaxLength && (<ErrorText errorText={`Максимальная допустимая длина - ${maxLength} символов`} />)}
     </label>
   )
 }
