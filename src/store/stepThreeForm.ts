@@ -5,11 +5,11 @@ export interface IStepThreeFormPayload extends IStepOneFormPayload {}
 
 interface IStepThreeForm {
   [k: string]: string;
-  about: string;
+  wishes: string;
 }
 
 const initialState: IStepThreeForm = {
-  about: ''
+  wishes: ''
 }
 
 const stepThreeFormSlice = createSlice({

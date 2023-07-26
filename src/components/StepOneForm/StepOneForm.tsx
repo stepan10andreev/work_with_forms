@@ -14,7 +14,7 @@ import { updateStepOneFormData } from '@/store/stepOneFormData'
 import { validateNicknameInput } from '@/utils/validation/validateNicknameInput'
 import { validateOnlyCyrillicText } from '@/utils/validation/validateTextInput'
 
-interface IFormJson {
+export interface IStepOneFormData {
   name: string;
   nickname: string;
   surname: string;
@@ -44,8 +44,8 @@ export const StepOneForm = () => {
 
     const form = event.target as HTMLFormElement;
 
-    const formData = new FormData(form) as unknown as Iterable<[IFormJson, FormDataEntryValue]>;
-    const formJson: IFormJson = Object.fromEntries(formData);
+    const formData = new FormData(form) as unknown as Iterable<[IStepOneFormData, FormDataEntryValue]>;
+    const formJson: IStepOneFormData = Object.fromEntries(formData);
 
     const ALL_INPUTS_IS_VALID = !isFoundEmptyValue(Object.values(formJson)) &&
                                 validateMaxLength(formJson.nickname, NICKNAME_MAX_LENGTH) &&

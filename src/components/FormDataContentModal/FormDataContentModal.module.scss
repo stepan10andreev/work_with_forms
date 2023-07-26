@@ -1,0 +1,51 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .title {
+    margin: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: center;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--btn-active);
+  }
+
+  .heading {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--btn-bg);
+  }
+
+  .userPoint,
+  .userChoice,
+  .userInfo,
+  .userBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .wrapper {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 22px;
+      color: var(--text-color);
+
+      &>span {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        font-style: italic;
+        color: var(--text-color);
+      }
+
+    }
+  }
+}

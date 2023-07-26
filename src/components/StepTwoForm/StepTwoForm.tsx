@@ -14,6 +14,12 @@ import { validateMaxLength } from '@/utils/validation/validateMaxLength'
 import { useRouter } from 'next/navigation'
 import { ErrorText } from '../ui-components/ErrorText/ErrorText'
 
+export interface IStepTwoFormData {
+  advantages: string[];
+  checkboxOptions: string[];
+  radioOption: string;
+}
+
 export const StepTwoForm = () => {
   const [isAdvantageMaxLength, setIsAdvantageMaxLength] = useState(true);
 

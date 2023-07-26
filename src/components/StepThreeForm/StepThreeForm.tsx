@@ -6,27 +6,48 @@ import { TextArea } from '../ui-components/TextArea/TextArea'
 import { getTextWithoutSpaces } from '@/utils/getTextWithoutSpaces'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import { useRouter } from 'next/navigation'
-import { useAppDispatch } from '../Hooks/useApp'
+import { useAppDispatch, useAppSelector } from '../Hooks/useApp'
 import { updateStepThreeFormData } from '@/store/stepThreeForm'
 import { getFormData } from '@/utils/formData/getFormData'
+import { Modal } from '../ui-components/Modal/Modal'
+import { FormDataContentModal } from '../FormDataContentModal/FormDataContentModal'
+import { IUserViewFormData } from '../UserViewForm/UserViewForm'
+import { IStepOneFormData } from '../StepOneForm/StepOneForm'
+import { IStepTwoFormData } from '../StepTwoForm/StepTwoForm'
 
 
-interface IFormData {
+export interface IStepThreeFormData {
   wishes: string;
 }
 
 export const StepThreeForm = () => {
+  const [isFulfilled, setFulfilled] = useState(false);
   const [lettersCount, setLettersCount] = useState(0);
+  const [userViewFormData, setUserViewFormData] = useState<null | IUserViewFormData>(null);
+  const [stepOneFormData, setstepOneFormData] = useState<null | IStepOneFormData>(null);
+  const [stepTwoFormData, setstepTwoFormData] = useState<null | IStepTwoFormData>(null);
+  const [stepThreeFormData, setstepThreeFormData] = useState<null | IStepThreeFormData>(null);
+
   const router = useRouter();
 
   const dispatch = useAppDispatch();
 
+  const userViewForm = useAppSelector((state) => state.userViewForm);
+  const stepOneForm = useAppSelector((state) => state.stepOneForm);
+  const stepTwoForm = useAppSelector((state) => state.stepTwoForm);
+  const stepThreeForm = useAppSelector((state) => state.stepThreeForm);
 
   const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
-    const form = event.target as HTMLFormElement;
-    const formData = getFormData<IFormData>(form)
-    formData.wishes
+
+    // const form = event.target as HTMLFormElement;
+    // const formData = getFormData<IStepThreeFormData>(form)
+    setUserViewFormData(userViewForm);
+    setstepOneFormData(stepOneForm);
+    setstepTwoFormData(stepTwoForm);
+    setstepThreeFormData(stepThreeForm);
+
+    setFulfilled(true);
   }
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
@@ -57,6 +78,19 @@ export const StepThreeForm = () => {
 
         <UIButton text={'Отправить'} type={'submit'} />
       </div>
+
+      {isFulfilled && (
+        <Modal onClose={() => setFulfilled(false)}>
+          <div className={styles.succes}>
+            <FormDataContentModal
+              userFormData={userViewFormData as IUserViewFormData}
+              formData1={stepOneFormData as IStepOneFormData}
+              formData2={stepTwoFormData as IStepTwoFormData}
+              formData3={stepThreeFormData as IStepThreeFormData}
+            />
+          </div>
+        </Modal>
+      )}
 
     </form>
   )

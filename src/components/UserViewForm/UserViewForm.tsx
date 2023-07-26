@@ -11,11 +11,11 @@ import { useRouter } from 'next/navigation'
 import { validateMinPhoneLength } from '@/utils/validation/validateMinPhoneLength'
 import { getOnlyPhoneNumber } from '@/utils/getOnlyPhoneNumber'
 
-// interface IFormJson {
-//   fullName: string;
-//   email: string;
-//   tel: string;
-// }
+export interface IUserViewFormData {
+  fullName: string;
+  email: string;
+  tel: string;
+}
 
 export const UserViewForm = () => {
   const router = useRouter();
