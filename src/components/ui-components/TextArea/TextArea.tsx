@@ -25,6 +25,7 @@ export const TextArea: FC<ITextAreaProps> = ({ name, placeholderText, As, headin
         maxLength={maxLength}
       >
       </textarea>
+
       {lettersCount != 0 && (<div className={styles.lettersCount}>Осталось {(textLength as number) - (lettersCount as number)} символов</div>)}
 
     </label>

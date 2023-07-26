@@ -4,4 +4,19 @@
     min-width: 100%;
     min-height: 200px;
   }
+
+  .wrapper {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    button:first-child {
+      max-width: 75px;
+    }
+
+    button:nth-child(2) {
+      max-width: fit-content;
+    }
+  }
 }

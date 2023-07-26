@@ -2,13 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import userViewFormReducer from './userViewFormData';
 import stepOneFormReducer from './stepOneFormData';
 import stepTwoFormReducer from './stepTwoFormData';
-import { createWrapper } from 'next-redux-wrapper';
+import stepThreeFormReducer from './stepThreeForm';
 
 export const store = configureStore({
   reducer: {
     userViewForm: userViewFormReducer,
     stepOneForm: stepOneFormReducer,
     stepTwoForm: stepTwoFormReducer,
+    stepThreeForm: stepThreeFormReducer,
   }
 })
 
