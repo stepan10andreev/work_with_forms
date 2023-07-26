@@ -1,4 +1,5 @@
 .label {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -42,3 +43,13 @@
   }
 }
 
+
+.lettersCount {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--btn-bg);
+}
