@@ -53,7 +53,7 @@ export const AdvantageInput: FC<IAdvantageInputProps> = ({ id, index }) => {
           type="text"
           placeholder='Введите преимущества'
           name='advantages'
-          value={value}
+          value={currentValue}
           onChange={handleChangeAdvantages}
           className={styles.input}
         />

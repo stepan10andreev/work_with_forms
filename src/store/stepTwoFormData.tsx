@@ -24,7 +24,7 @@ interface IStepTwoForm {
 }
 
 const initialState: IStepTwoForm = {
-  advantages: [],
+  advantages: [''],
   checkboxOptions: [],
   radioOption: '',
   advantageInputElements: [{ id: nanoid() }],
@@ -81,7 +81,8 @@ const stepTwoFormSlice = createSlice({
         id: nanoid()
       }
       state.advantageInputElements = [...state.advantageInputElements, input]
-      // можно при добавлении инпута сразу добавлять пустое значение в массив advantages (необязательно)
+      //при добавлении инпута сразу добавляем пустое значение в массив advantages ( обязательно! так как инпуты контролируемые)
+      state.advantages =  [...state.advantages, '']
     },
     deleteAdvantageInput: {
       reducer(state, action: PayloadAction<string>) {

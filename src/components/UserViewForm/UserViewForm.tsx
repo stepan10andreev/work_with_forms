@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEventHandler } from 'react'
+import React, { FormEventHandler, useState } from 'react'
 import { UIInput } from '../ui-components/UIInput/UIInput'
 import { UIButton } from '../ui-components/UIButton/UIButton'
 import styles from './UserViewForm.module.scss'
@@ -10,6 +10,7 @@ import { isValidEmail } from '@/utils/validation/isValidEmail'
 import { useRouter } from 'next/navigation'
 import { validateMinPhoneLength } from '@/utils/validation/validateMinPhoneLength'
 import { getOnlyPhoneNumber } from '@/utils/getOnlyPhoneNumber'
+import { ErrorText } from '../ui-components/ErrorText/ErrorText'
 
 export interface IUserViewFormData {
   fullName: string;
@@ -18,6 +19,7 @@ export interface IUserViewFormData {
 }
 
 export const UserViewForm = () => {
+  const [isInvalid, setIsInvalid] = useState(false);
   const router = useRouter();
 
   const handleSubmit: FormEventHandler = (event) => {
@@ -37,11 +39,9 @@ export const UserViewForm = () => {
       isCyrillic(formJson.fullName as string) &&
       isValidEmail(formJson.email as string) &&
       validateMinPhoneLength(getOnlyPhoneNumber(formJson.tel as string), 10)) {
-      // console.log(formJson)
       router.push('/step/1')
     } else {
-      // console.log('Проверьте поля на корректность введенных данных')
-      // здесь если нужно - логика рендера ошибок для каждого инпута по событию Submit (не по событию инпута)
+      setIsInvalid(true);
     }
   };
 
@@ -64,6 +64,8 @@ export const UserViewForm = () => {
         name={'email'}
         formName={'userViewForm'}
       />
+
+      {isInvalid && <ErrorText errorText='Проверьте поля на корректность введенных данных' />}
 
       <UIButton text={'Начать'} type={'submit'} />
     </form>
