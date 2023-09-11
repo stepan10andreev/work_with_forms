@@ -31,7 +31,7 @@ export const CustomSelect: FC<ICustomSelect> = ({ As ='h2', heading, name, formN
 
   return (
     <label className={styles.label}>
-      <As className={styles.heading}>{heading}</As>
+      {As != null && <As className={styles.heading}>{heading}</As>}
       <Select
         options={options}
         name={name}
